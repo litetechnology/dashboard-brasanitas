@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container } from './styles';
 
-const Navbar = () => {
+const Component = () => {
 
 return (
 			<>
@@ -11,5 +11,5 @@ return (
 
 }
 
-export default Navbar
+export default Component
 

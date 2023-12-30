@@ -1,4 +1,4 @@
 export default {
-    pageTitle: "react-vite-template",
+    pageTitle: "Dashboard Grupo Brasanitas",
     baseURL: "" 
 }
