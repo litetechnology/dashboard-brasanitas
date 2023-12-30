@@ -13,7 +13,7 @@ export const DropdownButton = styled.button`
   padding: 15px;
   display: flex;
   width: 200px;
-  height: auto;
+  height: 50px;
   border: none;
   color: #fff;
 

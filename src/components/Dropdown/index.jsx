@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineDown } from 'react-icons/ai';
 import { DropdownContainer, DropdownButton, DropdownList, ListItem, CheckboxLabel, CheckboxInput, IconWrapper, Icon } from './styles';
 
-const MultiSelectDropdown = ({ options, onChange }) => {
+const MultiSelectDropdown = ({ options, onChange, name="Selecione"}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
 
@@ -27,7 +27,7 @@ const MultiSelectDropdown = ({ options, onChange }) => {
   return (
     <DropdownContainer>
       <DropdownButton onClick={toggleDropdown}>
-        Selecione
+        {name}
         <IconWrapper>
           <Icon>
             <AiOutlineDown size={15}/>

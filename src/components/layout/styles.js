@@ -10,10 +10,11 @@ export const Container = styled.div`
 `
 
 export const Background = styled.div`
-  overflow: auto;
-  padding: 2.5%;
-  height: 100%;
+
+  padding: 2%;
+  height: 100vh;
   width: 100%;
+  overflow:auto; 
   `
 
 export const Menu = styled.div`
@@ -22,12 +23,11 @@ export const Menu = styled.div`
     width: 15vw;
     
     .header {
-        min-height: 10vh;
-        height: auto;
+
         width: 100%;
+        height: 10vh;
         
         img {
-            transform: translateY(-2px);
             height: 100%;
             width: 100%;
         }
@@ -36,7 +36,7 @@ export const Menu = styled.div`
     .buttons {
         flex-direction: column;
         display: flex;
-        height: 100%;
+        height: 90vh;
         padding: 5%;
         width: 100%;
     }
