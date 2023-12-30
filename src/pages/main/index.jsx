@@ -1,15 +1,26 @@
 import React from 'react';
 
-import { Container, Box } from './styles';
+import linhas from '../../assets/images/linhas.png';
+import logos from '../../assets/images/logos.png';
+import { Container, Box, TextContainer, ButtonContainer } from './styles';
 
 const Main = () => {
 
     return (
-        <Container>
-            <Box>
-                <p>home page</p>
-            </Box>
-        </Container>
+                    <Container>
+                       <img src={linhas} alt="linhas" id="linhas"/>
+                        <Box>
+                            <img src={logos} alt="logos"/>
+                            <TextContainer>
+                                    <h1>DASHBOARD</h1>
+                                    <h3>Controle de atividades</h3>
+                            </TextContainer>
+                            <ButtonContainer>
+                                    <button href="" >Ir para dashboard</button>
+                                    <button href="">Preencher formulario</button>
+                            </ButtonContainer>
+                        </Box>
+                    </Container>
     )
 }
 
