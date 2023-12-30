@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { Container, Box, TextContainer, ButtonContainer } from './styles';
 import linhas from '../../assets/images/linhas.png';
 import logos from '../../assets/images/logos.png';
-import { Container, Box, TextContainer, ButtonContainer } from './styles';
 
 const Main = () => {
 
@@ -16,8 +16,8 @@ const Main = () => {
                                     <h3>Controle de atividades</h3>
                             </TextContainer>
                             <ButtonContainer>
-                                    <button href="" >Ir para dashboard</button>
-                                    <button href="">Preencher formulario</button>
+                                    <button href="/dashboard" >Ir para dashboard</button>
+                                    <button href="/formulario">Preencher formulario</button>
                             </ButtonContainer>
                         </Box>
                     </Container>

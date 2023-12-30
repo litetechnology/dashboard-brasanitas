@@ -4,15 +4,15 @@ const GlobalStyle = createGlobalStyle`
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
  scroll-behavior: smooth;
+ box-sizing: border-box;
 }
 p, a, h1 {
   color: ${({theme}) => theme.colors.text};
 }
 body {
-  font-family: 'Ubuntu', sans-serif;
   background: ${({theme}) => theme.colors.background};
 
 }
