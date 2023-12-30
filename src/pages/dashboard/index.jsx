@@ -1,16 +1,15 @@
 import React from 'react';
 
 import Layout from '../../components/layout';
-import { Container, Box } from './styles';
+import MultiSelectDropdown from '../../components/Dropdown';
+import { Container } from './styles';
 
 
 const Dashboard = () => {
 
     return (
         <Layout initialSelect="Dashboard">
-            <Box>
-                <p>report</p>
-            </Box>
+            <MultiSelectDropdown options={['opção 1', 'opção 2', 'opção 3']}/>
         </Layout>
     )
 }
