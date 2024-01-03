@@ -1,29 +1,29 @@
+import { AiOutlinePlus, AiOutlineFontColors} from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
-import { AiOutlinePlus, AiOutlineFontColors} from 'react-icons/ai'
+import {toast} from 'react-toastify';
+
+import formatDate from '../../services/formatDate';
 import Navinfo from '../../components/navinfo';
+import Button from '../../components/button';
 import Layout from '../../components/layout';
-import { Container, EditContainer } from './styles';
 import Table from '../../components/table';
 import Input from '../../components/input';
-import Button from '../../components/button';
+import { EditContainer } from './styles';
 import api from '../../services/api';
-import {toast} from 'react-toastify'
-import formatDate from '../../services/formatDate';
+
 const Local = () => {
+  const [data, setData] = useState({titles: ['nome', 'data de criação'], response:[],values:[]});
   const [updated, setUpdated] = useState(false);
   const [onEdit, setOnEdit] = useState(false);  
   const [input, setInput] = useState('');  
-  const [data, setData] = useState({
-    titles: ['nome', 'data de criação'],
-    response:[],
-    values:[]
-  });
 
     const getLocals = async () => {
       try {
+
         var response = await api.get('/local/');
         response = response.data;
-       setData({...data, values: response.map(x => [x.name, formatDate(x.date)]), response: response.map(x => x)})
+        setData({...data, values: response.map(x => [x.name, formatDate(x.date)]), response: response.map(x => x)})
+     
       } catch (e) {
         toast.error("Erro interno ao puxar locais")
       }
@@ -31,30 +31,32 @@ const Local = () => {
 
     const deleteLocal = async (local) => {
       try {
-        console.log(local._id);
     
         const response = await toast.promise(
-          api.delete('/local/delete', { data: { id: local._id } }), // Passando o ID no corpo da requisição
+          api.delete('/local/delete', { data: { id: local._id } }),
           {
             pending: 'Apagando local',
             success: 'Local apagado com sucesso',
             error: 'Erro interno ao apagar local'
           }
         );
-    
         getLocals();
+
       } catch (e) {
-        console.log(e);
+        //console.log(e);
       }
+    };
+
+    const copyLocalId = (id) => {
+      navigator.clipboard.writeText(id);
+      toast.success('ID copiado com sucesso');
     };
     
 
     const CreateAndEdit = () => {
 
-      var update = typeof onEdit != 'boolean'
+      var update = typeof onEdit != 'boolean';
       if (!updated && update) setInput(onEdit.name) & setUpdated(true);
-
-
 
       const sendData = async () => {
         try {
@@ -79,10 +81,10 @@ const Local = () => {
                   error: 'Erro interno ao salvar local'
                 }
               );
-              
+
             }
             getLocals();
-            setUpdated(false)
+            setUpdated(false);
             setOnEdit(false);
             setInput("");
           
@@ -110,12 +112,19 @@ const Local = () => {
         <Layout initialSelect='Locais'>
             <Navinfo name={'Locais'} subname={'locais'} size={data?.values?.length} buttonName={'Novo local'} Icon={AiOutlinePlus} onButton={() => setOnEdit(true) & setInput("")}/>
             {
-              !onEdit ? <Table width="100%" data={data} onMenu={(x) => {
-                if (x.type == 'edit') setOnEdit(data.response[x.index]);
-                if (x.type == 'delete') deleteLocal(data.response[x.index]);
-                if (x.type == 'copy'){
-                  navigator.clipboard.writeText(data.response[x.index]._id)
-                  toast.success('ID copiado com sucesso')
+              !onEdit ? <Table width="100%" data={data} onMenu={({type, index}) => {
+                var currentData = data.response[index]
+                switch(type){
+                  case 'edit':
+                    setOnEdit(currentData);
+                  break
+                  case 'delete':
+                    deleteLocal(currentData);
+                  break
+                  case 'copy':
+                    copyLocalId(currentData?._id);
+                  break
+
                 }
               }}/> : <CreateAndEdit/>
             }
