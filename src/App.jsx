@@ -5,7 +5,6 @@ import {theme} from './styles/theme'
 import GlobalStyle from './styles/globalStyles'
 import config from './assets/config';
 
-
 function App() {
   return (
     <ThemeProvider theme={theme}>

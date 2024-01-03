@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const Container = styled.button`
     background: linear-gradient(118deg, #F37021 0%, #FF8339 50.88%);
     color: ${({theme}) => theme.colors.text};
-    justify-content: space-between;
+    justify-content: ${({center}) => center ? 'center': 'space-between'};
     box-sizing: border-box;
     flex-direction: row;
     align-items: center;
@@ -12,6 +12,7 @@ export const Container = styled.button`
     border-radius: 2px;
     font-weight: 600;
     min-width: 8vw;
+    margin: 1px;
     display: flex;
     border: none;
     inset: unset;

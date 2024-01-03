@@ -1,6 +1,9 @@
 import { AiOutlineHome, AiOutlineFileProtect, AiOutlineSolution, AiOutlinePushpin, AiOutlineIdcard} from "react-icons/ai";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 import React, { useState }from 'react';
+
 
 import { Container, Background, Menu, MenuSelector } from './styles';
 import logo from '../../assets/images/logos.png';
@@ -40,6 +43,18 @@ const navigate = useNavigate();
 
 return (
 		<Container>
+			<ToastContainer
+			position="top-right"
+			autoClose={2500}
+			hideProgressBar={false}
+			newestOnTop={false}
+			closeOnClick
+			rtl={false}
+			pauseOnFocusLoss
+			draggable
+			pauseOnHover
+			theme="dark"
+			/>
 			<Menu>
 				<div className="header">
 					<img src={logo} alt="logos" />

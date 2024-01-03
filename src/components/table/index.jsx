@@ -32,15 +32,15 @@ const DarkTable = ({ width, data, onMenu}) => {
                {
                 clickIcon == rowIndex && (
                   <Menu>
-                    <MenuItem onClick={() => onMenu({type: 'copy', row})}>
+                    <MenuItem onClick={() => onMenu({type: 'copy', index: rowIndex})}>
                       <AiOutlineCopy size={24}/>
                       <p>Copiar ID</p>
                     </MenuItem>
-                    <MenuItem onClick={() => onMenu({type: 'edit', row})}>
+                    <MenuItem onClick={() => onMenu({type: 'edit', index: rowIndex})}>
                       <AiOutlineEdit size={24}/>
                       <p>Editar</p>
                     </MenuItem>
-                    <MenuItem onClick={() => onMenu({type: 'delete', row})}>
+                    <MenuItem onClick={() => onMenu({type: 'delete', index: rowIndex})}>
                       <AiOutlineDelete size={24}/>
                       <p>Apagar</p>
                     </MenuItem>

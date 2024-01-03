@@ -8,13 +8,12 @@ const Input = ({ Icon, password, onClick, placeholder, value, onInput, width }) 
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // Mantém o foco no input após cada renderização
     inputRef.current.focus();
   }, [value]);
 
   return (
     <Container width={width}>
-      {Icon && <IconContainer>{<Icon />}</IconContainer>}
+      {Icon && <IconContainer>{<Icon  size={24}/>}</IconContainer>}
       <InputField
         ref={inputRef}
         type={InputType}

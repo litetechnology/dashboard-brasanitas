@@ -8,7 +8,20 @@ export const Container = styled.div`
     width: 100%;
 `
 export const EditContainer = styled.div`
-    margin-top: 10vh;
     height: auto;
-    width: 100%
+    margin: 0 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20vh;
+    width: 50%;
+    
+    .buttons{
+        margin: 5vh 0;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: row;
+        display: flex;
+        width: 50%;
+    }
 `

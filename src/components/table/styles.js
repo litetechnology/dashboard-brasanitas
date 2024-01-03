@@ -74,7 +74,7 @@ export const MenuItem = styled.div`
   justify-content: start;
   flex-direction: row;
   align-items: center;
-  padding: 5px 10px;
+  padding: 10px 10px;
   transition: 0.25s;
   min-width: 100px;
   display: flex;
