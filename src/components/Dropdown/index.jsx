@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import { AiOutlineDown } from 'react-icons/ai';
+import React, { useState } from 'react';
+
 import { DropdownContainer, DropdownButton, DropdownList, ListItem, CheckboxLabel, CheckboxInput, IconWrapper, Icon } from './styles';
 
 const MultiSelectDropdown = ({ options, onChange, name="Selecione"}) => {

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { DateInputContainer, Input } from './styles';
+import React, { useState } from "react";
+
+import { DateInputContainer, Input } from "./styles";
 
 const DatePicker = ({ onChange }) => {
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState("");
 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);

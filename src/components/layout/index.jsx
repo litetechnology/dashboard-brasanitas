@@ -1,9 +1,8 @@
 import { AiOutlineHome, AiOutlineFileProtect, AiOutlineSolution, AiOutlinePushpin, AiOutlineIdcard} from "react-icons/ai";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
-import React, { useState }from 'react';
-
+import React, { useState } from 'react';
 
 import { Container, Background, Menu, MenuSelector } from './styles';
 import logo from '../../assets/images/logos.png';

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { AiOutlineEllipsis, AiOutlineCopy, AiOutlineDelete, AiOutlineEdit} from 'react-icons/ai';
-import { TableContainer, Table, Menu, MenuItem} from './styles';
+import { AiOutlineEllipsis, AiOutlineCopy, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import React, { useState } from "react";
 
-const DarkTable = ({ width, data, onMenu}) => {
+import { TableContainer, Table, Menu, MenuItem } from "./styles";
+
+const DarkTable = ({ width, data, onMenu }) => {
   const [clickIcon, setClickIcon] = useState(null);
 
   return (
@@ -13,7 +14,7 @@ const DarkTable = ({ width, data, onMenu}) => {
             {data.titles.map((title, index) => (
               <th key={index}>{title}</th>
             ))}
-          <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -23,31 +24,38 @@ const DarkTable = ({ width, data, onMenu}) => {
                 <td key={columnIndex}>{value}</td>
               ))}
               <td>
-                <AiOutlineEllipsis 
-                color='#eeeeee' 
-                size={24} 
-                className='icon'
-                onClick={() => setClickIcon(rowIndex == clickIcon ? null : rowIndex)}
+                <AiOutlineEllipsis
+                  color="#eeeeee"
+                  size={24}
+                  className="icon"
+                  onClick={() =>
+                    setClickIcon(rowIndex == clickIcon ? null : rowIndex)
+                  }
                 />
-               {
-                clickIcon == rowIndex && (
+                {clickIcon == rowIndex && (
                   <Menu>
-                    <MenuItem onClick={() => onMenu({type: 'copy', index: rowIndex})}>
-                      <AiOutlineCopy size={24}/>
+                    <MenuItem
+                      onClick={() => onMenu({ type: "copy", index: rowIndex })}
+                    >
+                      <AiOutlineCopy size={24} />
                       <p>Copiar ID</p>
                     </MenuItem>
-                    <MenuItem onClick={() => onMenu({type: 'edit', index: rowIndex})}>
-                      <AiOutlineEdit size={24}/>
+                    <MenuItem
+                      onClick={() => onMenu({ type: "edit", index: rowIndex })}
+                    >
+                      <AiOutlineEdit size={24} />
                       <p>Editar</p>
                     </MenuItem>
-                    <MenuItem onClick={() => onMenu({type: 'delete', index: rowIndex})}>
-                      <AiOutlineDelete size={24}/>
+                    <MenuItem
+                      onClick={() =>
+                        onMenu({ type: "delete", index: rowIndex })
+                      }
+                    >
+                      <AiOutlineDelete size={24} />
                       <p>Apagar</p>
                     </MenuItem>
-
                   </Menu>
-                )
-               }
+                )}
               </td>
             </tr>
           ))}

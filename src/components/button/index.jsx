@@ -1,21 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import { Container } from './styles';
+import { Container } from "./styles";
 
-const Button = ({name, Icon, onButton, width, height, center}) => {
+const Button = ({ name, Icon, onButton, width, height, center }) => {
+  return (
+    <Container
+      width={width}
+      height={height}
+      center={center}
+      onClick={() => onButton()}
+    >
+      {Icon && <Icon size={24} color={"#eeeeee"} />}
+      {name}
+    </Container>
+  );
+};
 
-return (
-			<Container width={width} height={height} center={center} onClick={() => onButton()}>
-				{
-					Icon && <Icon size={24} color={'#eeeeee'}/>
-				}
-				{
-					name
-				}
-			</Container>
-	)
-
-}
-
-export default Button
-
+export default Button;
