@@ -7,3 +7,8 @@ export const Container = styled.div`
     display: flex;
     width: 100%;
 `
+export const EditContainer = styled.div`
+    margin-top: 10vh;
+    height: auto;
+    width: 100%
+`

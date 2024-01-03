@@ -14,7 +14,7 @@ return (
 					</Size>
 				</Box>
 				<Box>
-					<Button Icon={Icon} name={buttonName} onButton={() => onButton}/>
+					<Button Icon={Icon} name={buttonName} onButton={() => onButton()}/>
 				</Box>
 			</Container>
 	)
