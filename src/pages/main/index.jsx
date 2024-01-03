@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
 import { Container, Box, TextContainer, ButtonContainer } from './styles';
@@ -5,6 +6,7 @@ import linhas from '../../assets/images/linhas.png';
 import logos from '../../assets/images/logos.png';
 
 const Main = () => {
+    const navigate = useNavigate();
 
     return (
                     <Container>
@@ -16,8 +18,8 @@ const Main = () => {
                                     <h3>Controle de atividades</h3>
                             </TextContainer>
                             <ButtonContainer>
-                                    <button href="/dashboard" >Ir para dashboard</button>
-                                    <button href="/formulario">Preencher formulario</button>
+                                    <button onClick={() => navigate('/dashboard')}>Ir para dashboard</button>
+                                    <button onClick={() => navigate('/formulario')}>Preencher formulario</button>
                             </ButtonContainer>
                         </Box>
                     </Container>

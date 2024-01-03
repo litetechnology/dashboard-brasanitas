@@ -1,4 +1,4 @@
-import { AiOutlineHome, AiOutlineFileProtect, AiOutlineSolution} from "react-icons/ai";
+import { AiOutlineHome, AiOutlineFileProtect, AiOutlineSolution, AiOutlinePushpin, AiOutlineIdcard} from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import React, { useState }from 'react';
 
@@ -20,6 +20,16 @@ const menuOptions = [
 		name: "Formulário",
 		icon: AiOutlineSolution,
 		route: "/formulario"
+	},
+	{
+		name: "Locais",
+		icon: AiOutlinePushpin,
+		route: "/local"
+	},
+	{
+		name: "Equipe",
+		icon: AiOutlineIdcard,
+		route: "/equipe"
 	},
 
 ]
