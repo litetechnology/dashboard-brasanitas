@@ -74,7 +74,7 @@ const Local = () => {
             } else {
 
               const response = await toast.promise(
-                api.post('/local/create', { name: input }),
+                api.post('/local/create', { name: input}),
                 {
                   pending: 'Salvando local',
                   success: 'Local salvo com sucesso',
