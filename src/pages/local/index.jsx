@@ -110,7 +110,7 @@ const Local = () => {
 
     return (
         <Layout initialSelect='Locais'>
-            <Navinfo name={'Locais'} subname={'locais'} size={data?.values?.length} buttonName={'Novo local'} Icon={AiOutlinePlus} onButton={() => setOnEdit(true) & setInput("")}/>
+            <Navinfo name={'Locais'} subname={'locais (l)'} size={data?.values?.length} buttonName={'Novo local'} Icon={AiOutlinePlus} onButton={() => setOnEdit(true) & setInput("")}/>
             {
               !onEdit ? <Table width="100%" data={data} onMenu={({type, index}) => {
                 var currentData = data.response[index]

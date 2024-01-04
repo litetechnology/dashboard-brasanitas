@@ -1,6 +1,5 @@
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import React, { useState, useEffect, useRef } from 'react';
-
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Container, InputField, IconContainer } from './styles';
 
 const Input = ({ Icon, password, onClick, placeholder, value, onInput, width }) => {
