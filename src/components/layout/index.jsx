@@ -1,4 +1,4 @@
-import { AiOutlineHome, AiOutlineFileProtect, AiOutlineSolution, AiOutlinePushpin, AiOutlineIdcard, AiOutlineTool} from "react-icons/ai";
+import { AiOutlineHome, AiOutlineFileProtect, AiOutlineSolution, AiOutlinePushpin, AiOutlineIdcard, AiOutlineTool, AiOutlineCar} from "react-icons/ai";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
@@ -37,6 +37,11 @@ const menuOptions = [
 		name: "Equipamentos",
 		icon: AiOutlineTool,
 		route: "/equipamentos"
+	},
+	{
+		name: "Veiculos",
+		icon: AiOutlineCar,
+		route: "/veiculos"
 	},
 
 ]

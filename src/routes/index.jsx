@@ -6,6 +6,7 @@ import Form from "../pages/formulario";
 import Equipe from "../pages/equipe";
 import Error from "../pages/error";
 import Local from '../pages/local';
+import Plate from "../pages/plate";
 import Main from '../pages/main';
 
   export const Router = () => {
@@ -16,6 +17,7 @@ import Main from '../pages/main';
           <Route path="/dashboard" element={<Dashboard />}/>
           <Route path="/formulario" element={<Form />}/>
           <Route path="/equipamentos" element={<Equipamentos />}/>
+          <Route path="/veiculos" element={<Plate />}/>
           <Route path="/equipe" element={<Equipe />}/>
           <Route path="/local" element={<Local />}/>
           <Route path="/404" element={<Error />}/>
