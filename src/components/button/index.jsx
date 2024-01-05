@@ -10,7 +10,7 @@ const Button = ({ name, Icon, onButton, width, height, center }) => {
       center={center}
       onClick={() => onButton()}
     >
-      {Icon && <Icon size={24} color={"#eeeeee"} />}
+      {Icon && <Icon className='icon' size={24} color={"#eeeeee"} />}
       {name}
     </Container>
   );

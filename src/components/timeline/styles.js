@@ -45,4 +45,5 @@ export const Event = styled.div`
   margin-bottom: 10px;
   width: 80%;
   text-align: center;
+  cursor: pointer;
 `;

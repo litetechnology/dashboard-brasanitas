@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 
 import { DropdownContainer, DropdownButton, DropdownList, ListItem, CheckboxLabel, CheckboxInput, IconWrapper, Icon } from './styles';
 
-const MultiSelectDropdown = ({ options, onChange, name="Selecione"}) => {
+const MultiSelectDropdown = ({ options, days=[], onChange, name="Selecione", width='200px'}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(days);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -27,7 +27,7 @@ const MultiSelectDropdown = ({ options, onChange, name="Selecione"}) => {
 
   return (
     <DropdownContainer>
-      <DropdownButton onClick={toggleDropdown}>
+      <DropdownButton onClick={toggleDropdown} width={width}>
         {name}
         <IconWrapper>
           <Icon>
@@ -36,7 +36,7 @@ const MultiSelectDropdown = ({ options, onChange, name="Selecione"}) => {
         </IconWrapper>
       </DropdownButton>
       {isOpen && (
-        <DropdownList>
+        <DropdownList width={width}>
           {options.map((option) => (
             <ListItem key={option}>
               <CheckboxLabel>

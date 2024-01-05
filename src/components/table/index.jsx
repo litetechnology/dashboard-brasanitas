@@ -1,9 +1,9 @@
-import { AiOutlineEllipsis, AiOutlineCopy, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineEllipsis, AiOutlineCopy, AiOutlineDelete, AiOutlineEdit, AiOutlineCarryOut } from "react-icons/ai";
 import React, { useState } from "react";
 
 import { TableContainer, Table, Menu, MenuItem } from "./styles";
 
-const DarkTable = ({ width, data, onMenu }) => {
+const DarkTable = ({ width, data, onMenu, onRow }) => {
   const [clickIcon, setClickIcon] = useState(null);
 
   return (
@@ -21,7 +21,7 @@ const DarkTable = ({ width, data, onMenu }) => {
           {data.values.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {row.map((value, columnIndex) => (
-                <td key={columnIndex}>{value}</td>
+                <td key={columnIndex}  onClick={() => onRow ? onRow(rowIndex) : ''} >{value}</td>
               ))}
               <td>
                 <AiOutlineEllipsis
@@ -40,6 +40,16 @@ const DarkTable = ({ width, data, onMenu }) => {
                       <AiOutlineCopy size={24} />
                       <p>Copiar ID</p>
                     </MenuItem>
+                    {
+                      onRow && (
+                          <MenuItem
+                            onClick={() => onRow ? onRow(rowIndex) : ''}
+                          >
+                            <AiOutlineCarryOut size={24} />
+                            <p>Cronograma</p>
+                          </MenuItem>
+                      )
+                    }
                     <MenuItem
                       onClick={() => onMenu({ type: "edit", index: rowIndex })}
                     >

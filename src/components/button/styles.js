@@ -2,9 +2,9 @@
 import styled from 'styled-components'
 
 export const Container = styled.button`
+    justify-content: ${({center}) => center ? 'center': 'space-between'};
     background: linear-gradient(118deg, #F37021 0%, #FF8339 50.88%);
     color: ${({theme}) => theme.colors.text};
-    justify-content: ${({center}) => center ? 'center': 'space-between'};
     box-sizing: border-box;
     flex-direction: row;
     align-items: center;
@@ -18,10 +18,15 @@ export const Container = styled.button`
     inset: unset;
     height: auto;
     width: auto;
+    min-width: 10vw;
 
     &:hover{
         transition: 0.5s ease-in-out;
         filter: brightness(1.1);
         transform: scale(1.05);
+    }
+
+    .icon{
+        margin-right: 15px;
     }
 `

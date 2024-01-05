@@ -12,7 +12,7 @@ export const DropdownButton = styled.button`
   cursor: pointer;
   padding: 15px;
   display: flex;
-  width: 200px;
+  width: ${({width}) => width};
   height: 50px;
   border: none;
   color: #fff;
@@ -29,7 +29,7 @@ export const DropdownList = styled.ul`
   background-color: #333;
   position: absolute;
   list-style: none;
-  width: 200px;
+  width: ${({width}) => width};
   padding: 8px;
   margin: 0;
 `;
