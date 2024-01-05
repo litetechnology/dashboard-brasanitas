@@ -1,4 +1,4 @@
-import { AiOutlinePlus, AiOutlineFontColors, AiOutlineRetweet, AiOutlineFontSize} from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlineFontColors, AiOutlineRetweet, AiOutlineFontSize, AiOutlineDelete} from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
 import {toast} from 'react-toastify';
 
@@ -8,7 +8,7 @@ import Button from '../../components/button';
 import Layout from '../../components/layout';
 import Table from '../../components/table';
 import Input from '../../components/input';
-import { EditContainer } from './styles';
+import { Back, EditContainer } from './styles';
 import api from '../../services/api';
 import Dropdown from '../../components/Dropdown';
 
@@ -143,6 +143,28 @@ const Plate = () => {
         </>
       )
     }
+
+    
+    const deleteAction = async (action) => {
+      try {
+        
+        var plate = data.response[onTimeline];
+        plate.timeline = plate.timeline.filter(x => x._id != action._id);
+        const response = await toast.promise(
+          api.put('/plate/update', { id: plate._id, data: { ...plate  } }),
+          {
+            pending: 'Apagando atividade',
+            success: 'Atividade apagada com sucesso',
+            error: 'Erro interno ao apagar atividade'
+          }
+        );
+        getPlates();
+
+      } catch (e) {
+        //console.log(e);
+      }
+    };
+
     const CreateAndEditTimeline = () => {
 
       const [validateSize, setValidateSize] = useState('');  
@@ -210,12 +232,13 @@ const Plate = () => {
 
       return (
         <EditContainer>
-            <Input Icon={AiOutlineFontColors} placeholder='Nome da atividade' value={name} onInput={(x) => setName(x)} />
+            <Input  Icon={AiOutlineFontColors} placeholder='Nome da atividade' value={name} onInput={(x) => setName(x)} />
             <Input Icon={AiOutlineFontSize} placeholder='Descrição' value={description} onInput={(x) => setDescription(x)} />
             <Input Icon={AiOutlineRetweet} placeholder='Expiração da atividade, 0 por padrão' value={validateSize} onInput={(x) => setValidateSize(x)} />
             <Dropdown options={daysOfWeek} days={days} width='25vw' onChange={(x) => setDays(x)}/>
-            <div className="buttons">
-              <Button center name='CANCELAR' onButton={() => setOnEditTimeline(false)}/>
+            <div className={`buttons ${action ? 'actionOn' : ''}`}>
+              { action ?  <Button Icon={AiOutlineDelete} center color={'rgba(255, 0, 0, 0.60)'} name='APAGAR' onButton={() => deleteAction(action) & setOnEditTimeline(false) & setAction(false)}/> : <></>}
+              <Button center name='CANCELAR' onButton={() => setOnEditTimeline(false) & setAction(false)}/>
               <Button center name={action ? 'ATUALIZAR' : 'CRIAR'} onButton={sendData}/>
             </div>
         </EditContainer>
@@ -261,25 +284,6 @@ const Plate = () => {
 
       },[])
 
-      const deleteAction = async (action) => {
-        try {
-          
-          var plate = data.response[onTimeline];
-          plate.timeline = plate.timeline.filter(x => x._id != action._id);
-          const response = await toast.promise(
-            api.put('/plate/update', { id: plate._id, data: { ...plate  } }),
-            {
-              pending: 'Apagando atividade',
-              success: 'Atividade apagada com sucesso',
-              error: 'Erro interno ao apagar atividade'
-            }
-          );
-          getPlates();
-  
-        } catch (e) {
-          //console.log(e);
-        }
-      };
   
       const copyActionId = (id) => {
         navigator.clipboard.writeText(id);
@@ -316,6 +320,10 @@ const Plate = () => {
 
                   }
                 }}/>
+                <Back>
+                     <Button name={'VOLTAR'} center onButton={() => setOnEditTimeline(false) & setAction(false) & setOnEdit(false)  & setOnTimeline(false)}/>
+                </Back>
+
               </>
             }
         </>
@@ -328,11 +336,9 @@ const Plate = () => {
     return (
       <Layout initialSelect='Veiculos'>
           {
-            onEdit && <CreateAndEdit/>
+            onEdit ?  <CreateAndEdit/> : typeof onTimeline == 'number' ? <TimelineContainer/> : <TableContainer/>
           }
-          {
-            !onEdit && typeof onTimeline == 'number' ? <TimelineContainer/> : <TableContainer/>
-          }
+
       </Layout>
   )
 

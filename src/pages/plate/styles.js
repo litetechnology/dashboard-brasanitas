@@ -6,6 +6,8 @@ export const Container = styled.div`
     height: 100vh;
     display: flex;
     width: 100%;
+
+
 `
 export const EditContainer = styled.div`
     height: auto;
@@ -24,4 +26,17 @@ export const EditContainer = styled.div`
         display: flex;
         width: 50%;
     }
+
+    .actionOn{
+        width: 80%;
+    }
+`
+
+export const Back = styled.div`
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: auto;
+        margin: 5vh 0;
+        width: 100%;
 `

@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 export const Container = styled.button`
     justify-content: ${({center}) => center ? 'center': 'space-between'};
-    background: linear-gradient(118deg, #F37021 0%, #FF8339 50.88%);
+    background: ${({color}) => color ? '' : 'linear-gradient(118deg, #F37021 0%, #FF8339 50.88%)'};
+    background-color: ${({color}) => color ? color : ''};
     color: ${({theme}) => theme.colors.text};
     box-sizing: border-box;
     flex-direction: row;
