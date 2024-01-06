@@ -7,7 +7,7 @@ export const DropdownContainer = styled.div`
 
 export const DropdownButton = styled.button`
   justify-content: center;
-  background-color: #333;
+    background-color: ${({color}) => color };
   align-items: center;
   cursor: pointer;
   padding: 15px;
@@ -18,7 +18,8 @@ export const DropdownButton = styled.button`
   color: #fff;
 
   &:hover {
-    background-color: #444;
+    background-color: #303030;
+    transition: 0.2s;
   }
 `;
 
@@ -26,12 +27,13 @@ export const DropdownList = styled.ul`
   border: 0.1px solid rgba(238, 238, 238, 0.35);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transform: translateY(10px);
-  background-color: #333;
+    background-color: ${({color}) => color };
   position: absolute;
   list-style: none;
   width: ${({width}) => width};
   padding: 8px;
   margin: 0;
+  z-index: 15;
 `;
 
 export const ListItem = styled.li`

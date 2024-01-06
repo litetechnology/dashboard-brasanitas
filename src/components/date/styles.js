@@ -6,10 +6,10 @@ export const DateInputContainer = styled.div`
 `;
 
 export const Input = styled.input`
-  background-color: #333;
+  background-color: ${({color}) => color };
+  width: ${({width}) => width };
   cursor: pointer;
   padding: 15px;
-  width: 200px;
   height: auto;
   height: 50px;
   inset: unset;
