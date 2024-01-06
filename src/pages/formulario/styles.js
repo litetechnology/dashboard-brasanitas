@@ -41,7 +41,7 @@ export const Question = styled.div`
     flex-direction: column;
     position: relative;
     align-items: start;
-    margin: 25px 0;
+    margin: 50px 0;
     display: flex;
     height: auto;
     width: 100%;
@@ -51,16 +51,28 @@ export const Question = styled.div`
 export const LabelContainer = styled.div`
 margin-bottom: 15px;
 font-weight: 600;
-label{
-    color: ${({theme}) => theme.colors.text};
-    margin-right: 10px;
-    font-size: 18px;
-}
-
 span {
     color: rgba(255, 0, 0, 0.60);
     font-size: 15px;
     position: absolute;
+}
+
+label{
+    color: ${({theme}) => theme.colors.text};
+    margin-right: 10px;
+    font-size: 18px;
+    
+    span {
+        color: ${({theme}) => theme.colors.secondaryText};
+        position: relative;
+        font-size: 13px;
+        
+    }
+}
+
+.waterSpan{
+    color: ${({theme}) => theme.colors.primary};
+    font-size: 16px;
 }
 
 `

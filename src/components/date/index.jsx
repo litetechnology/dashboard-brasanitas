@@ -13,7 +13,7 @@ const DatePicker = ({ onChange, date = "", color = "#333", width = '200px', auto
       const dayOfWeek = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][dayOfWeekIndex];
       onChange(formattedDate, dayOfWeek);
     }
-  }, [selectedDate, onChange, autoDate]);
+  }, [selectedDate, autoDate]);
 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
@@ -21,8 +21,13 @@ const DatePicker = ({ onChange, date = "", color = "#333", width = '200px', auto
 
   useEffect(() => {
     if (autoDate) {
-      const currentDate = format(new Date(), 'yyyy-MM-dd');
-      setSelectedDate(currentDate);
+      setSelectedDate((prevDate) => {
+        const currentDate = format(new Date(), 'yyyy-MM-dd');
+        if (prevDate !== currentDate) {
+          return currentDate;
+        }
+        return prevDate;
+      });
     }
   }, [autoDate]);
 

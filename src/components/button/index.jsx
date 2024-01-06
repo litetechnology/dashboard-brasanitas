@@ -5,7 +5,7 @@ import { Container } from "./styles";
 const Button = ({ name, Icon, onButton, width, height, center, color }) => {
   return (
     <Container
-      width={width}
+    width={width}
       height={height}
       center={center}
       color={color}

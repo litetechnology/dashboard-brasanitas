@@ -18,8 +18,8 @@ export const Container = styled.button`
     border: none;
     inset: unset;
     height: auto;
-    width: auto;
     min-width: 10vw;
+    width: ${({width}) => width ? width : 'auto'};
 
     &:hover{
         transition: 0.5s ease-in-out;
