@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { Container, Box, Title, Question, LabelContainer } from './styles';
 import Dropdown from '../../components/Dropdown';
-import Input from '../../components/input';
+import Button from '../../components/button';
 import Date from '../../components/date';
 import api from '../../services/api';
-import { parse, getDay } from 'date-fns';
-import Button from '../../components/button';
 
 const Form = () => {
     const [form, setForm] = useState({ date: '', user:'', shift: '', tool: [], plate: {}, actions:[], forActions:[], water:[]})
@@ -34,7 +32,22 @@ const Form = () => {
             }
           };
 
-          const sendData = () => {
+          const sendData = async () => {
+                await window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth' 
+                    });
+
+            const response = await toast.promise(
+                api.post('/form/create', form),
+                {
+                  pending: 'Enviando formulário',
+                  success: 'Formulário enviado com sucesso',
+                  error: 'Erro interno ao enviar formulário'
+                }
+              );
+
+              setForm({ date: '', user:'', shift: '', tool: [], plate: {}, actions:[], forActions:[], water:[]});
 
           }
 
@@ -42,6 +55,18 @@ const Form = () => {
 
     return (
         <Container>
+			<ToastContainer
+                position="top-right"
+                autoClose={3500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                />
             <Box>
                 <Title>
                     <h1>Controle de atividades Brasanitas</h1>
@@ -53,7 +78,7 @@ const Form = () => {
                         <label>Atividade realizada em ?</label>
                         <span>*</span>
                     </LabelContainer>
-                    <Date autoDate onChange={(date, day) => setForm({...form, date}) & setDayOfWeek(day)} width='40vw' color='#262626'/>
+                    <Date autoDate onChange={(date, day) => setForm({...form, date}) & setDayOfWeek(day) & console.log(date)} width='40vw' color='#262626'/>
                 </Question>
 
                 <Question>
@@ -61,7 +86,7 @@ const Form = () => {
                         <label>Selecione o responsável pela atividade</label>
                         <span>*</span>
                     </LabelContainer>
-                    <Dropdown  oneSelect options={data.users ? data.users?.map(x => x?.name) : []} onChange={(user) => setForm({...form, user})}  name={form.user ? form.user : 'Selecione'} width='40vw' color='#262626'/>
+                    <Dropdown  oneSelect options={data.users ? data.users?.map(x => x?.name) : []} onChange={(user) => setForm({...form, user: user[0]})}  name={form.user ? form.user : 'Selecione'} width='40vw' color='#262626'/>
                 </Question>
 
                 <Question>
@@ -69,7 +94,7 @@ const Form = () => {
                         <label>Realizou em qual turno ?</label>
                         <span>*</span>
                     </LabelContainer>
-                    <Dropdown  oneSelect options={['diurno', 'noturno']} onChange={(shift) => setForm({...form, shift})} name={form.shift ? form.shift : 'Selecione'} width='40vw' color='#262626'/>
+                    <Dropdown  oneSelect options={['diurno', 'noturno']} onChange={(shift) => setForm({...form, shift: shift[0]})} name={form.shift ? form.shift : 'Selecione'} width='40vw' color='#262626'/>
                 </Question>
 
                 <Question>
@@ -94,6 +119,20 @@ const Form = () => {
                     </LabelContainer>
                     <Dropdown  options={form.plate?.timeline?.filter(activity => activity?.days?.includes(dayOfWeek))?.map(x => x?.name)} onChange={(actions) => setForm({...form, actions})}  name={form.actions.length != 0 ? form.actions.join(', ') : 'Selecione'}width='40vw'  color='#262626'/>
                 </Question>
+                
+                {
+                    form.actions.map((item, index) => {
+                        return (
+                                <Question key={index}>
+                                    <LabelContainer>
+                                        <label>Quantidade de agua gasta na atividade <span className='waterSpan'>({item})</span></label>
+                                        <span>*</span>
+                                    </LabelContainer>
+                                    <Dropdown  oneSelect options={[0, 5000, 10000, 15000, 20000, 25000]} onChange={(water) => setForm({...form, water: [...form.water, { action: item, water}]})} width='40vw'  color='#262626'/>
+                                </Question>
+                        )
+                    })
+                }
 
                 <Question>
                     <LabelContainer>
@@ -101,27 +140,15 @@ const Form = () => {
                     </LabelContainer>
                     <Dropdown  options={allActivities} onChange={(forActions) => setForm({...form, forActions})}  name={form.forActions.length != 0 ? form.forActions.join(', ') : 'Selecione'}width='40vw'  color='#262626'/>
                 </Question>
-
-                {
-                    form.actions.map((item, index) => {
-                        return (
-                                <Question key={index}>
-                                    <LabelContainer>
-                                        <label>Quantidade de agua gasta em <span className='waterSpan'>({item})</span></label>
-                                    </LabelContainer>
-                                    <Dropdown  oneSelect options={[0, 5000, 10000, 15000, 20000, 25000]} onChange={(water) => setForm({...form, water: [...form.water, { action: item, water}]})} width='40vw'  color='#262626'/>
-                                </Question>
-                        )
-                    })
-                }
                 {
                     form.forActions.map((item, index) => {
                         return (
                                 <Question key={index}>
                                     <LabelContainer>
-                                        <label>Quantidade de agua gasta em <span className='waterSpan'>({item})</span></label>
+                                        <label>Quantidade de agua gasta na atividade <span className='waterSpan'>({item})</span></label>
+                                        <span>*</span>
                                     </LabelContainer>
-                                    <Dropdown  oneSelect options={[0, 5000, 10000, 15000, 20000, 25000]} onChange={(water) => setForm({...form, water})} width='40vw'  color='#262626'/>
+                                    <Dropdown  oneSelect options={[0, 5000, 10000, 15000, 20000, 25000]} onChange={(water) => setForm({...form, water: [...form.water, { action: item, water}]})} width='40vw'  color='#262626'/>
                                 </Question>
                         )
                     })
