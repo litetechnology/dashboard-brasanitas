@@ -59,7 +59,13 @@ const Relatorio = () => {
                       <Question>
                             <LabelContainer>Turno:</LabelContainer>
                             <Value>
-                                {item.shift ? item.shift : 'sem turno.'}
+                                {item?.shift ? item.shift : 'sem turno.'}
+                            </Value>
+                      </Question>
+                      <Question>
+                            <LabelContainer>Turno:</LabelContainer>
+                            <Value>
+                                {item?.local ? item.local : 'sem local.'}
                             </Value>
                       </Question>
                       <Question>

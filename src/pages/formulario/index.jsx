@@ -8,7 +8,7 @@ import Date from '../../components/date';
 import api from '../../services/api';
 
 const Form = () => {
-    const [form, setForm] = useState({ date: '', user:'', shift: '', tool: [], plate: {}, actions:[], forActions:[], water:[]})
+    const [form, setForm] = useState({ date: '', user:'', shift: '', tool: [], plate: {}, actions:[], forActions:[], water:[], local:''})
     const [data, setData] = useState({local:[], plate:[], tool:[], users:[]});
     const [allActivities, setAllActivities] = useState([]);
     const [dayOfWeek, setDayOfWeek] = useState('');
@@ -95,6 +95,14 @@ const Form = () => {
                         <span>*</span>
                     </LabelContainer>
                     <Dropdown  oneSelect options={['diurno', 'noturno']} onChange={(shift) => setForm({...form, shift: shift[0]})} name={form.shift ? form.shift : 'Selecione'} width='40vw' color='#262626'/>
+                </Question>
+
+                <Question>
+                    <LabelContainer>
+                        <label>Realizou em qual local ?</label>
+                        <span>*</span>
+                    </LabelContainer>
+                    <Dropdown  oneSelect options={data.local ? data.local?.map(x => x?.name) : []} onChange={(local) => setForm({...form, local: local[0]})} name={form.local ? form.local : 'Selecione'} width='40vw' color='#262626'/>
                 </Question>
 
                 <Question>
