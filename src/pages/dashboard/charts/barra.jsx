@@ -18,6 +18,13 @@ const Barra = ({ data, name }) => {
       titleTextStyle: { color: '#ecf0f1' }, // Horizontal axis title text color
     },
     chartArea: { backgroundColor: '#363636' }, // Chart area background color
+    slices: [
+      { color: '#F37021' },
+      { color: '#8fc9f1' },
+      { color: '#f288e9' },
+      { color: '#71c39f' },
+      { color: '#9b59b6' },
+    ],
   };
 
   return (

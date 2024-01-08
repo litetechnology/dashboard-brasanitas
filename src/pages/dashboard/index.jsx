@@ -6,6 +6,7 @@ import Filter from '../../components/filter';
 import { Container, DataContainer, BoxDataContainer, Row} from './styles';
 
 import GraficoPizza from './charts/pizza';
+import Combo from './charts/combo';
 import api from '../../services/api';
 import Barra from './charts/barra';
 
@@ -103,7 +104,6 @@ const Dashboard = () => {
           
           useEffect(() => { getData() }, [])
           useEffect(() => updateStatistics, [selects])
-
           
 
     return (
@@ -147,17 +147,25 @@ const Dashboard = () => {
                         [
                             ['tipo', 'quantidade'],
                             ['atividades dentro do cronograma', data?.statistics?.scheduledActivityCount],
-                            ['atividades fora do crnograma', data?.statistics?.unscheduledActivityCount],
+                            ['atividades fora do cronograma', data?.statistics?.unscheduledActivityCount],
 
                         ]
                     }/>
-                    <Barra name="Atividades por placa" data={[
-                        ['Quantidade', 'Placas'],
-                        ...(data.statistics.activityCountByPlate
-                            ? Object.entries(data.statistics.activityCountByPlate).map(([key, value]) => [key, value])
-                            : [])
-                    ]}/>
+   
+ 
                     
+                <GraficoPizza
+                        name={'Atividades realizadas por veiculo'}
+                        data={[
+                            ['placa', 'quantidade'],
+                            ...(data.statistics.activityCountByPlate
+                                ? Object.entries(data.statistics.activityCountByPlate).map(([key, value]) => [key, value])
+                                : [])
+                        ]}
+                    />
+                </Row>
+                <Row>
+
                 </Row>
              </Container>
         </Layout>
