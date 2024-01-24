@@ -49,6 +49,36 @@ export const MenuSelector = styled.button`
     align-items: center;
     border-radius: 2px;
     display: flex;
+    margin: 5px auto;
+    border: none;
+    inset: unset;
+    height: 50px;
+    padding: 5%;
+    width: 80%;
+
+    
+    p {
+        color: ${({theme}) => theme.colors.text};
+        letter-spacing: 1.6px;
+        line-height: normal;
+        margin-left: 15px;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    &:hover{
+        background-color: rgba(238, 238, 238, 0.085);
+        transition: 0.5s;
+    }
+
+`
+export const Paste = styled.button`
+    background-color: ${({select}) => select ? 'rgba(238, 238, 238, 0.085)' : 'transparent'};
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    border-radius: 2px;
+    display: flex;
     margin: 5px 0;
     border: none;
     inset: unset;
@@ -60,7 +90,6 @@ export const MenuSelector = styled.button`
         color: ${({theme}) => theme.colors.text};
         letter-spacing: 1.6px;
         line-height: normal;
-        margin-left: 15px;
         font-weight: 500;
         font-size: 14px;
     }
