@@ -6,11 +6,11 @@ import Input from '../../../components/input';
 import { EditContainer } from '../styles';
 
 
-const CreateAndEdit = ({data, update, onBack, createQuestion, updateQuestion}) => {
+const CreateAndEdit = ({data, update, onBack, createQuestion, updateQuestion, getBook}) => {
 
     const [ form, setForm ] = useState(update ? data : { name: "", description:"", observation:""});
 
-    const send = async () => (update ? await updateQuestion({...form, id: data.id}) : await createQuestion(form)) & onBack();
+    const send = async () => (update ? await updateQuestion({id: data._id, data: {...form}}) : await createQuestion(form)) & onBack() & getBook();
 
     return (
         <EditContainer>

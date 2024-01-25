@@ -1,22 +1,19 @@
-import { AiOutlinePlus, AiOutlineFontColors, AiOutlineInfoCircle, AiOutlineSecurityScan} from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
-import {toast} from 'react-toastify';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 
 import formatDate from '../../services/formatDate';
 import Navinfo from '../../components/navinfo';
-import Button from '../../components/button';
 import Layout from '../../components/layout';
 import Table from '../../components/table';
-import Input from '../../components/input';
-import { EditContainer } from './styles';
 import api from '../../services/api';
 
 import CreateAndEdit from './edit';
 
 const Book = () => {
   const [data, setData] = useState({titles: ['nome', 'descrição', 'atividades', 'data de criação'], response:[],values:[]});
-  const [onEdit, setOnEdit] = useState(false);  
   const [onQuestion, setOnQuestion] = useState(false);  
+  const [onEdit, setOnEdit] = useState(false);  
 
     const getBook = async () => {
       try {
@@ -55,7 +52,7 @@ const Book = () => {
     
     const createQuestion = async (data) => {
       try {
-        return await toast.promise(
+         await toast.promise(
           api.post('/segurance/create', data),
           {
             pending: 'Salvando questão',
@@ -70,8 +67,8 @@ const Book = () => {
 
     const updateQuestion = async (data) => {
       try {
-        return await toast.promise(
-          api.post('/segurance/create', data),
+         await toast.promise(
+          api.put('/segurance/update', data),
           {
             pending: 'Salvando questão',
             success: 'Questão salva com sucesso',
@@ -83,29 +80,6 @@ const Book = () => {
       }
     }
 
-    const CreateAndEdit3 = () => {
-      const [name, setName] = useState('');  
-      const [description, setDescription] = useState('');  
-      const [observation, setObservation] = useState('');  
-      const [updated, setUpdated] = useState(false);
-
-
-      return (
-        <EditContainer>
-            <Input Icon={AiOutlineFontColors} placeholder='Identificador da questão' value={name} onInput={(x) => setName(x)} />
-            <Input Icon={AiOutlineInfoCircle} placeholder='Descrição da questão' value={description} onInput={(x) => setDescription(x)} />
-            <Input Icon={AiOutlineSecurityScan} placeholder='Observações' value={observation} onInput={(x) => setObservation(x)} />
-            <div className="buttons">
-              <Button center name='CANCELAR' onButton={() => setOnEdit(false)}/>
-              <Button center name={onEdit?.name ? 'ATUALIZAR' : 'CRIAR'} onButton={sendData}/>
-            </div>
-        </EditContainer>
-      )
-    }
-
-
-
-
     useEffect(() => {
       getBook()
     }, [])
@@ -113,7 +87,7 @@ const Book = () => {
     return (
         <Layout initialSelect='Book'>
             <Navinfo 
-              onButton={() => setOnEdit({data:null, update:false, createQuestion, updateQuestion})}
+              onButton={() => setOnEdit({data:null, update:false, createQuestion, updateQuestion, getBook})}
               size={data?.values?.length}
               buttonName={'Nova questão'} 
               subname={'questões'}
@@ -128,7 +102,7 @@ const Book = () => {
                 var currentData = data.response[index]
                 switch(type){
                   case 'edit':
-                    setOnEdit({data: currentData, update:true, createQuestion, updateQuestion});
+                    setOnEdit({data: currentData, update:true, createQuestion, updateQuestion, getBook});
                   break
                   case 'delete':
                     deleteQuestion(currentData);
