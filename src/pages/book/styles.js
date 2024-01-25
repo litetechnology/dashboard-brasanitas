@@ -25,3 +25,26 @@ export const EditContainer = styled.div`
         width: 50%;
     }
 `
+
+export const BoxContainer = styled.div`
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+    display: flex;
+    height: auto;
+    width: 100%;
+`
+
+export const Box = styled.div`
+
+    display: flex;
+    width: 40vw;
+    height: auto;
+    min-height: 25vh;
+    background-color: ${({theme}) => theme.colors.secondaryBackground};
+    color: ${({theme}) => theme.colors.text};
+    border-radius: 5px;
+    padding: 2% 5%;
+    flex-direction: column;
+    margin: 2vh 0;
+`

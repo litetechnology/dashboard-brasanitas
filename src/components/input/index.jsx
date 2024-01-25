@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Container, InputField, IconContainer } from './styles';
 
-const Input = ({ Icon, password, onClick, placeholder, value, onInput, width }) => {
+const Input = ({ Icon, password, onClick, placeholder, value, onInput, width, color}) => {
   const [showPassword, setShowPassword] = useState(false);
   const InputType = password && !showPassword ? 'password' : 'text';
   const inputRef = useRef(null);
@@ -12,7 +12,7 @@ const Input = ({ Icon, password, onClick, placeholder, value, onInput, width }) 
   }, [value]);
 
   return (
-    <Container width={width}>
+    <Container width={width}  color={color}>
       {Icon && <IconContainer>{<Icon  size={24}/>}</IconContainer>}
       <InputField
         ref={inputRef}

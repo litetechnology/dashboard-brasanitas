@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: ${({ theme }) => theme.colors.secondaryBackground};
+  background-color: ${({ theme, color }) => color ? color: theme.colors.secondaryBackground};
   width: ${(props) => props.width || '100%'};
   color: ${({ theme }) => theme.colors.text};
   align-items: center;

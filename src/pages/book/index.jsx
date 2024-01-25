@@ -7,7 +7,7 @@ import Navinfo from '../../components/navinfo';
 import Layout from '../../components/layout';
 import Table from '../../components/table';
 import api from '../../services/api';
-
+import Questions from './questions';
 import CreateAndEdit from './edit';
 
 const Book = () => {
@@ -113,7 +113,7 @@ const Book = () => {
 
                 }
 
-              }}/>  : <></>
+              }}/>  : <Questions {...onQuestion} onBack={() => setOnQuestion(false)}/>
             }
         </Layout>
     )
