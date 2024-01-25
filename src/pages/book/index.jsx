@@ -11,10 +11,12 @@ import Input from '../../components/input';
 import { EditContainer } from './styles';
 import api from '../../services/api';
 
+import CreateAndEdit from './edit';
+
 const Book = () => {
   const [data, setData] = useState({titles: ['nome', 'descrição', 'atividades', 'data de criação'], response:[],values:[]});
-  const [updated, setUpdated] = useState(false);
   const [onEdit, setOnEdit] = useState(false);  
+  const [onQuestion, setOnQuestion] = useState(false);  
 
     const getBook = async () => {
       try {
@@ -24,11 +26,11 @@ const Book = () => {
         setData({...data, values: response.map(x => [x.name, x.description, x?.questions?.length || 0 , formatDate(x.date)]), response: response.map(x => x)})
      
       } catch (e) {
-        toast.error("Erro interno ao puxar locais")
+        toast.error("Erro interno ao puxar questões")
       }
     };
 
-    const deleteLocal = async (question) => {
+    const deleteQuestion = async (question) => {
       try {
     
         const response = await toast.promise(
@@ -42,59 +44,51 @@ const Book = () => {
         getBook();
 
       } catch (e) {
-        //console.log(e);
+        toast.error("Erro interno ao deletar questão")
       }
     };
 
-    const copyLocalId = (id) => {
+    const copyQuestionId = (id) => {
       navigator.clipboard.writeText(id);
       toast.success('ID copiado com sucesso');
     };
     
+    const createQuestion = async (data) => {
+      try {
+        return await toast.promise(
+          api.post('/segurance/create', data),
+          {
+            pending: 'Salvando questão',
+            success: 'Questão salva com sucesso',
+            error: 'Erro interno ao salvar questão'
+          }
+        );
+      } catch (e){
+        toast.error("Erro interno ao criar questão")    
+      }
+    }
 
-    const CreateAndEdit = () => {
+    const updateQuestion = async (data) => {
+      try {
+        return await toast.promise(
+          api.post('/segurance/create', data),
+          {
+            pending: 'Salvando questão',
+            success: 'Questão salva com sucesso',
+            error: 'Erro interno ao salvar questão'
+          }
+        ); 
+      } catch (e){
+        toast.error("Erro interno ao atualizar questão")    
+      }
+    }
+
+    const CreateAndEdit3 = () => {
       const [name, setName] = useState('');  
       const [description, setDescription] = useState('');  
       const [observation, setObservation] = useState('');  
-      var update = typeof onEdit != 'boolean';
-      if (!updated && update) setInput(onEdit.name) & setUpdated(true);
+      const [updated, setUpdated] = useState(false);
 
-      const sendData = async () => {
-        try {
-            if (update) {
-
-              const response = await toast.promise(
-                api.put('/local/update', { id: onEdit._id, data: { name: input } }),
-                {
-                  pending: 'Atualizando local',
-                  success: 'Local atualizado com sucesso',
-                  error: 'Erro interno ao atualizar local'
-                }
-              );
-
-            } else {
-
-              const response = await toast.promise(
-                api.post('/segurance/create', { name, description, observation }),
-                {
-                  pending: 'Salvando questão',
-                  success: 'Questão salva com sucesso',
-                  error: 'Erro interno ao salvar questão'
-                }
-              );
-
-            }
-            getBook();
-            setUpdated(false);
-            setOnEdit(false);
-            setName("");
-            setDescription("");
-            setObservation("");
-          
-        } catch (e) {
-          //console.log(e)
-        }
-      }
 
       return (
         <EditContainer>
@@ -103,11 +97,14 @@ const Book = () => {
             <Input Icon={AiOutlineSecurityScan} placeholder='Observações' value={observation} onInput={(x) => setObservation(x)} />
             <div className="buttons">
               <Button center name='CANCELAR' onButton={() => setOnEdit(false)}/>
-              <Button center name={update ? 'ATUALIZAR' : 'CRIAR'} onButton={sendData}/>
+              <Button center name={onEdit?.name ? 'ATUALIZAR' : 'CRIAR'} onButton={sendData}/>
             </div>
         </EditContainer>
       )
     }
+
+
+
 
     useEffect(() => {
       getBook()
@@ -115,23 +112,34 @@ const Book = () => {
 
     return (
         <Layout initialSelect='Book'>
-            <Navinfo name={'Book'} subname={'questões'} size={data?.values?.length} buttonName={'Nova questão'} Icon={AiOutlinePlus} onButton={() => setOnEdit(true) & setInput("")}/>
+            <Navinfo 
+              onButton={() => setOnEdit({data:null, update:false, createQuestion, updateQuestion})}
+              size={data?.values?.length}
+              buttonName={'Nova questão'} 
+              subname={'questões'}
+              Icon={AiOutlinePlus} 
+              name={'Book'} 
+            />
+
             {
-              !onEdit ? <Table width="100%" data={data} onMenu={({type, index}) => {
+              onEdit != false ?  <CreateAndEdit {...onEdit} onBack={() => setOnEdit(false)}/> : onQuestion == false  ?<Table width="100%" data={data} 
+              onRow={(index) => setOnQuestion(data.response[index])}
+              onMenu={({type, index}) => {
                 var currentData = data.response[index]
                 switch(type){
                   case 'edit':
-                    setOnEdit(currentData);
+                    setOnEdit({data: currentData, update:true, createQuestion, updateQuestion});
                   break
                   case 'delete':
-                    deleteLocal(currentData);
+                    deleteQuestion(currentData);
                   break
                   case 'copy':
-                    copyLocalId(currentData?._id);
+                    copyQuestionId(currentData?._id);
                   break
 
                 }
-              }}/> : <CreateAndEdit/>
+
+              }}/>  : <></>
             }
         </Layout>
     )
