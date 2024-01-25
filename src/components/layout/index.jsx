@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AiOutlineHome, AiOutlineFileProtect, AiOutlineSolution, AiOutlinePushpin, AiOutlineIdcard, AiOutlineTool, AiOutlineCar, AiFillCaretDown , AiFillCaretUp } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineFileProtect, AiOutlineSolution, AiOutlinePushpin, AiOutlineIdcard, AiOutlineTool, AiOutlineCar, AiFillCaretDown , AiFillCaretUp, AiOutlineFileSearch } from "react-icons/ai";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ const folders = [
     isOpen: false,
     items: [
       {
-        name: "Dashboard",
+        name: "Visão Geral",
         icon: AiOutlineHome,
         route: "/dashboard"
       },
@@ -56,6 +56,11 @@ const folders = [
         name: "Visão Geral",
         icon: AiOutlineHome,
         route: "/seguranca/geral"
+      },
+      {
+        name: "Book",
+        icon: AiOutlineFileSearch,
+        route: "/book"
       }
     ]
   }

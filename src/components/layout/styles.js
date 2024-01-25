@@ -73,7 +73,7 @@ export const MenuSelector = styled.button`
 
 `
 export const Paste = styled.button`
-    background-color: ${({select}) => select ? 'rgba(238, 238, 238, 0.085)' : 'transparent'};
+    background-color: rgba(238, 238, 238, 0.040);
     justify-content: space-between;
     flex-direction: row-reverse;
     align-items: center;

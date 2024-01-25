@@ -9,6 +9,7 @@ import Error from "../pages/error";
 import Local from '../pages/local';
 import Plate from "../pages/plate";
 import Main from '../pages/main';
+import Book from "../pages/book";
 
   export const Router = () => {
     return(
@@ -24,6 +25,7 @@ import Main from '../pages/main';
           <Route path="/local" element={<Local />}/>
           <Route path="/404" element={<Error />}/>
           <Route path="/" element={<Main />}/>
+          <Route path="/book" element={<Book />}/>
         </Routes>
       </BrowserRouter>
     )
