@@ -89,15 +89,15 @@ const Book = () => {
             <Navinfo 
               onButton={() => setOnEdit({data:null, update:false, createQuestion, updateQuestion, getBook})}
               size={data?.values?.length}
-              buttonName={'Nova questão'} 
-              subname={'questões'}
+              buttonName={'Novo book'} 
+              subname={'books'}
               Icon={AiOutlinePlus} 
               name={'Book'} 
             />
 
             {
               onEdit != false ?  <CreateAndEdit {...onEdit} onBack={() => setOnEdit(false)}/> : onQuestion == false  ?<Table width="100%" data={data} 
-              onRow={(index) => setOnQuestion(data.response[index])}
+              onRow={(index) => setOnQuestion({data: data.response[index], updateQuestion, getBook})}
               onMenu={({type, index}) => {
                 var currentData = data.response[index]
                 switch(type){
