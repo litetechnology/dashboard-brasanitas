@@ -4,6 +4,7 @@ import Equipamentos from "../pages/equipamentos";
 import Dashboard from "../pages/dashboard";
 import Relatorio from "../pages/relatorio";
 import Formulario from "../pages/formulario";
+import Segurance from "../pages/segurance";
 import Equipe from "../pages/equipe";
 import Error from "../pages/error";
 import Local from '../pages/local';
@@ -17,6 +18,7 @@ import Book from "../pages/book";
         <Routes>
           <Route path="*" element={<Navigate to="/404" replace/>}/>
           <Route path="/dashboard" element={<Dashboard />}/>
+          <Route path="/segurance/dashboard" element={<Segurance />}/>
           <Route path="/formulario" element={<Formulario />}/>
           <Route path="/equipamentos" element={<Equipamentos />}/>
           <Route path="/veiculos" element={<Plate />}/>

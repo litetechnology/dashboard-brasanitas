@@ -19,10 +19,19 @@ const Questions = ({data, onBack, updateQuestion, getBook}) => {
     
         const send = async () => {
             var questions = data?.questions || [];
+
             if (update){
-                var index = questions.indexOf(x => x?._id == data?._id);
-                questions[index] = {...form};
-            } else {
+                var index = questions.findIndex(x => x?._id == questionData?._id);
+            
+                if (index !== -1) {
+                    // Atualiza o item com base no índice encontrado
+                    questions[index] = {...form};
+                    console.log(index);
+                    console.log(questions);
+                } else {
+                    console.log("Item não encontrado com o _id fornecido.");
+                }
+            }else {
                 questions = [...questions, {...form}]
             }
             await updateQuestion({id: data._id, data: {...data, questions}}) 
@@ -35,7 +44,7 @@ const Questions = ({data, onBack, updateQuestion, getBook}) => {
             <EditContainer>
                 <Input Icon={AiOutlineInfoCircle} placeholder='Descrição da questão' value={form.description} onInput={(x) => setForm({...form, description: x})} />
                 <Input Icon={AiOutlineUser} placeholder='Responsavel' value={form.author} onInput={(x) => setForm({...form, author: x})} />
-                <Input Icon={AiOutlineSecurityScan} placeholder='Observações' value={form.observation} onInput={(x) => setForm({...form, observation: x})} />
+                <Input Icon={AiOutlineSecurityScan} placeholder='Observações' days={[form.status || ""]} value={form.observation} onInput={(x) => setForm({...form, observation: x})} />
                 <Dropdown
                     options={['em andamento', 'não iniciado', 'concluido']}
                     name={form.status ? form.status : 'SELECIONE O STATUS'}
@@ -70,7 +79,7 @@ const Questions = ({data, onBack, updateQuestion, getBook}) => {
                         data?.questions && data.questions.map((item, index) => {
                             return (
     
-                                    <Box key={index} onClick={() => setEdit({questionData: item, updat: true})}>
+                                    <Box key={index} onClick={() => setEdit({questionData: item, update: true})}>
                                         <Question>
                                             <LabelContainer><span className='waterSpan'>{index}  -  </span>{item.description}</LabelContainer>
                                         </Question>
@@ -89,7 +98,8 @@ const Questions = ({data, onBack, updateQuestion, getBook}) => {
                                         <Question>
                                             <LabelContainer>Status de conclusão</LabelContainer>
                                             <Value>{item?.status || 'não iniciado'}.</Value>
-                                        </Question>                                   
+                                        </Question>    
+                                        <Button name="evidencias"/>                               
                                     </Box>
                             )
                         })

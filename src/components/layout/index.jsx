@@ -55,7 +55,7 @@ const folders = [
       {
         name: "Visão Geral",
         icon: AiOutlineHome,
-        route: "/seguranca/geral"
+        route: "/segurance/dashboard"
       },
       {
         name: "Book",
