@@ -5,6 +5,7 @@ import Layout from '../../components/layout';
 import Filter from '../../components/filter';
 import { Container, DataContainer, BoxDataContainer, Row} from './styles';
 
+import formatNumber from '../../services/formatNumber';
 import GraficoPizza from './charts/pizza';
 import Combo from './charts/combo';
 import api from '../../services/api';
@@ -86,11 +87,11 @@ const Dashboard = () => {
                         description: "Atividades fora do cronograma"
                     },
                     {
-                        value: response.averageWaterConsumption  + 'L'|| 0 ,
+                        value: formatNumber(response.averageWaterConsumption) || 0 ,
                         description: "Consumo médio de agua"
                     },
                     {
-                        value: response.totalWaterConsumption  + 'L'|| 0 ,
+                        value: formatNumber(response.totalWaterConsumption) || 0 ,
                         description: "Consumo total de agua"
                     },
                     {
@@ -99,6 +100,8 @@ const Dashboard = () => {
                     },
                 ]
             })
+
+            console.log(formatNumber(response.totalWaterConsumption))
           };
 
           
