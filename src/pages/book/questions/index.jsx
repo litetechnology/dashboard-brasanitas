@@ -24,19 +24,15 @@ const Questions = ({data, onBack, updateQuestion, getBook}) => {
                 var index = questions.findIndex(x => x?._id == questionData?._id);
             
                 if (index !== -1) {
-                    // Atualiza o item com base no índice encontrado
                     questions[index] = {...form};
-                    console.log(index);
-                    console.log(questions);
-                } else {
-                    console.log("Item não encontrado com o _id fornecido.");
                 }
-            }else {
+            } else {
                 questions = [...questions, {...form}]
             }
             await updateQuestion({id: data._id, data: {...data, questions}}) 
 
              setEdit(false) 
+             console.log('atualizando book')
              getBook();
         }
     
@@ -65,7 +61,7 @@ const Questions = ({data, onBack, updateQuestion, getBook}) => {
         <>
         <Navinfo
             name={'Questões'}
-            size={data?.questions.lenght || 0}
+            size={data.questions.length || 0}
             onButton={() => setEdit({questionData:null, update: false})}
             buttonName={'Nova questão'}
             subname={'questões'}
@@ -98,8 +94,7 @@ const Questions = ({data, onBack, updateQuestion, getBook}) => {
                                         <Question>
                                             <LabelContainer>Status de conclusão</LabelContainer>
                                             <Value>{item?.status || 'não iniciado'}.</Value>
-                                        </Question>    
-                                        <Button name="evidencias"/>                               
+                                        </Question>                                
                                     </Box>
                             )
                         })

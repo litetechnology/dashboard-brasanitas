@@ -86,6 +86,8 @@ const Book = () => {
 
     return (
         <Layout initialSelect='Book'>
+          {
+            onQuestion == false && 
             <Navinfo 
               onButton={() => setOnEdit({data:null, update:false, createQuestion, updateQuestion, getBook})}
               size={data?.values?.length}
@@ -94,6 +96,7 @@ const Book = () => {
               Icon={AiOutlinePlus} 
               name={'Book'} 
             />
+          }
 
             {
               onEdit != false ?  <CreateAndEdit {...onEdit} onBack={() => setOnEdit(false)}/> : onQuestion == false  ?<Table width="100%" data={data} 
