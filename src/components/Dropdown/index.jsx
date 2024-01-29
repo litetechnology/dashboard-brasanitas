@@ -62,7 +62,7 @@ const MultiSelectDropdown = ({ options, days = [], onChange, name = "Selecione",
       </DropdownButton>
       {isOpen && (
         <DropdownList width={width} color={color}>
-          {options.length!= 0 && options?.map((option, index) => (
+          {options?.length!= 0 && options?.map((option, index) => (
             <ListItem key={option}>
               <CheckboxLabel>
                 <CheckboxInput

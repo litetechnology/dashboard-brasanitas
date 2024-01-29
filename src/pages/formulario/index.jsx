@@ -125,7 +125,7 @@ const Form = () => {
                     <LabelContainer>
                         <label>Atividades realizadas dentro do cronograma <span>({form.date} - {dayOfWeek})</span></label>
                     </LabelContainer>
-                    <Dropdown  options={form.plate?.timeline?.filter(activity => activity?.days?.includes(dayOfWeek))?.map(x => x?.name)} onChange={(actions) => setForm({...form, actions})}  name={form.actions.length != 0 ? form.actions.join(', ') : 'Selecione'}width='40vw'  color='#262626'/>
+                    <Dropdown  options={form.plate?.timeline?.filter(activity => activity?.days?.includes(dayOfWeek))?.map(x => x?.name)} onChange={(actions) => setForm({...form, actions})}  name={form?.actions?.length != 0 ? form?.actions?.join(', ') : 'Selecione'}width='40vw'  color='#262626'/>
                 </Question>
                 
                 {
