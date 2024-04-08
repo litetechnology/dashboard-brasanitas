@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
 import Equipamentos from "../pages/equipamentos";
 import Dashboard from "../pages/dashboard";
+import Link from "../pages/link";
 import Relatorio from "../pages/relatorio";
 import Formulario from "../pages/formulario";
 import Segurance from "../pages/segurance";
@@ -18,6 +19,7 @@ import Book from "../pages/book";
         <Routes>
           <Route path="*" element={<Navigate to="/404" replace/>}/>
           <Route path="/dashboard" element={<Dashboard />}/>
+          <Route path="/link/dashboard" element={<Link />}/>
           <Route path="/segurance/dashboard" element={<Segurance />}/>
           <Route path="/formulario" element={<Formulario />}/>
           <Route path="/equipamentos" element={<Equipamentos />}/>

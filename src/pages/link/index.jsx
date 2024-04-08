@@ -110,7 +110,6 @@ const Dashboard = () => {
           
 //             <Filter data={data} onChange={x => setSelects(x)}/>
     return (
-        <Layout initialSelect="Dashboard">
 
              <Container>
                 <DataContainer>
@@ -171,7 +170,6 @@ const Dashboard = () => {
 
                 </Row>
              </Container>
-        </Layout>
     )
 }
 
