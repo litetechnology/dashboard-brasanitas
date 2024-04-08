@@ -108,7 +108,7 @@ const Dashboard = () => {
           useEffect(() => { getData() }, [])
           useEffect(() => updateStatistics, [selects])
           
-//             <Filter data={data} onChange={x => setSelects(x)}/>
+//            
     return (
 
              <Container>
