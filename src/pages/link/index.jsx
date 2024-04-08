@@ -112,6 +112,7 @@ const Dashboard = () => {
     return (
 
              <Container>
+                 <Filter data={data} onChange={x => setSelects(x)}/>
                 <DataContainer>
                      {
                         titles.singleValues?.map((item, i) => (
