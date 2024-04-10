@@ -12,6 +12,7 @@ import Local from '../pages/local';
 import Plate from "../pages/plate";
 import Main from '../pages/main';
 import Book from "../pages/book";
+import SignIn from "../pages/signin";
 
   export const Router = () => {
     return(
@@ -28,7 +29,9 @@ import Book from "../pages/book";
           <Route path="/relatorio" element={<Relatorio />}/>
           <Route path="/local" element={<Local />}/>
           <Route path="/404" element={<Error />}/>
+          <Route path="/signin" element={<SignIn />}/>
           <Route path="/" element={<Main />}/>
+          <Route path="/invite/:id" element={<Main />}/>
           <Route path="/book" element={<Book />}/>
         </Routes>
       </BrowserRouter>

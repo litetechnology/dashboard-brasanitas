@@ -1,18 +1,29 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState} from 'react';
 import { FiArrowRight } from "react-icons/fi";
-import React from 'react';
 
 import { Container, Image, TitleContainer, TitleBoxContainer, InfoContainer, InfoRow, InfoBox } from './styles';
 import image from '../../assets/images/home-gradient.png';
-import c1 from '../../assets/images/c1.png';
-import c2 from '../../assets/images/c2.png';
-import c3 from '../../assets/images/c3.png';
-import c4 from '../../assets/images/c4.png';
 import Carroussel from './carroussel';
+import api from '../../services/api';
+
 const Main = () => {
     const navigate = useNavigate();
-    
-    const carroussel = [c1,c2,c3,c4,c1,c2,c3,c4];
+    const [user, setUser] = useState(null);
+    const { id } = useParams();
+
+    const getUser = async () => {
+        try {
+            const response = await api.post("/auth/get", { id });
+            setUser(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    useEffect(() => {
+        if (id) getUser();
+    }, [])
 
     return (
                     <Container>
@@ -21,7 +32,7 @@ const Main = () => {
                             <TitleBoxContainer>
                                 <h1>Controle de atividades Brasanitas</h1>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et lectus a nisl iaculis volutpat. Etiam dictum varius nulla non dictum. Vivamus rhoncus posuere porttitor. Cras luctus, quam non consectetur fermentum, enim velit finibus tortor, non cursus tortor massa at urna. Sed rutrum faucibus lacus vel malesuada.</p>
-                                <button>ACESSAR <FiArrowRight size={20}/> </button>
+                                <button onClick={() => id ? navigate(`/signin?id=${id}&name=${user?.name}`) : navigate('/signin')} >ACESSAR <FiArrowRight size={20}/> </button>
                             </TitleBoxContainer>
                         </TitleContainer>
 
