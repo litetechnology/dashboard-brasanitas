@@ -2,15 +2,17 @@ import { useNavigate } from 'react-router-dom';
 import { FiArrowRight } from "react-icons/fi";
 import React from 'react';
 
-import { Container, Image, TitleContainer, TitleBoxContainer } from './styles';
+import { Container, Image, TitleContainer, TitleBoxContainer} from './styles';
 import image from '../../assets/images/home-gradient.png';
 import c1 from '../../assets/images/c1.png';
 import c2 from '../../assets/images/c2.png';
 import c3 from '../../assets/images/c3.png';
 import c4 from '../../assets/images/c4.png';
-
+import Carroussel from './carroussel';
 const Main = () => {
     const navigate = useNavigate();
+    
+    const carroussel = [c1,c2,c3,c4,c1,c2,c3,c4];
 
     return (
                     <Container>
@@ -22,6 +24,8 @@ const Main = () => {
                                 <button>ACESSAR <FiArrowRight size={20}/> </button>
                             </TitleBoxContainer>
                         </TitleContainer>
+
+<Carroussel/>
 
                     </Container>
     )

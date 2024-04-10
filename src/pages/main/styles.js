@@ -7,13 +7,14 @@ export const Container = styled.div`
         align-items: center;
         height: auto;
         display: flex;
+        flex-direction: column;
         width: 100%;
     
 `
 
 export const TitleContainer = styled.section`
     position: relative;
-    height: 100vh;
+    height: 95vh;
     width: 100%;
 `;
 export const TitleBoxContainer = styled.div`
@@ -75,4 +76,12 @@ export const Image = styled.img`
     width: 50vw;
     left: 0;
     top: 0;
+`
+
+export const Carroussel = styled.div`
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    height: auto;
+    width: 100%;
 `
