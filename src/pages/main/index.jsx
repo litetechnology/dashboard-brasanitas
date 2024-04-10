@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { FiArrowRight } from "react-icons/fi";
 import React from 'react';
 
-import { Container, Image, TitleContainer, TitleBoxContainer} from './styles';
+import { Container, Image, TitleContainer, TitleBoxContainer, InfoContainer, InfoRow, InfoBox } from './styles';
 import image from '../../assets/images/home-gradient.png';
 import c1 from '../../assets/images/c1.png';
 import c2 from '../../assets/images/c2.png';
@@ -25,7 +25,33 @@ const Main = () => {
                             </TitleBoxContainer>
                         </TitleContainer>
 
-<Carroussel/>
+                        <Carroussel/>
+
+                        <InfoContainer>
+                            <InfoRow>
+                                <InfoBox>
+                                    <span>1.</span>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquid cupiditate, iste distinctio aliquam magni odit nemo aut nobis eaque animi voluptatum repellat ratione qui atque nam officia at quos.</p>
+                                </InfoBox>
+                                <InfoBox>
+                                    <span>2.</span>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquid cupiditate, iste distinctio aliquam magni odit nemo aut nobis eaque animi voluptatum repellat ratione qui atque nam officia at quos.</p>
+                                </InfoBox>
+                            </InfoRow>
+
+                            <InfoRow>
+                                <InfoBox>
+                                    <span>3.</span>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquid cupiditate, iste distinctio aliquam magni odit nemo aut nobis eaque animi voluptatum repellat ratione qui atque nam officia at quos.</p>
+                                </InfoBox>
+                                <InfoBox>
+                                    <span>4.</span>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquid cupiditate, iste distinctio aliquam magni odit nemo aut nobis eaque animi voluptatum repellat ratione qui atque nam officia at quos.</p>
+                                </InfoBox>
+                            </InfoRow>
+
+  
+                        </InfoContainer>
 
                     </Container>
     )

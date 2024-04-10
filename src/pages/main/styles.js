@@ -85,3 +85,41 @@ export const Carroussel = styled.div`
     height: auto;
     width: 100%;
 `
+
+export const InfoContainer = styled.div`
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    display: flex;
+    height: auto;
+    width: 100%;
+    margin-top: 10vh;
+`
+
+export const InfoRow = styled.div`
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    width: 100%;
+`
+export const InfoBox = styled.div`
+    padding: 30px;
+    height: 25vh;
+    width: 40vw;
+
+    span{
+        background-image: linear-gradient(to right, #066687, #024778);
+        border-radius: 15px 5px 15px 5px;
+        padding: 15px;
+        font-weight: 900;
+        color: #fff;
+    }
+
+    p{
+        margin-top: 50px;
+        color: #363636;
+        font-size: 16px;
+    }
+`
