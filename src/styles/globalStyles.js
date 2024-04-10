@@ -4,7 +4,7 @@ const GlobalStyle = createGlobalStyle`
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-size: 16px;
  scroll-behavior: smooth;
  box-sizing: border-box;
