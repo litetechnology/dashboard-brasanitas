@@ -28,7 +28,7 @@ const Equipe = () => {
             const name = item.name;
             const creationDate = formatDate(item.date);
             const daysSinceCreation = calculateDaysSinceCreation(item.date);
-            return [name, creationDate, window.location.origin + '/invite/' + item._id, item.validateSize == 0 ? '' : `${item.validateSize} dias`, item.validateSize == 0 ? 'não expira' : `${item.validateSize - daysSinceCreation} dias`];
+            return [name, creationDate, window.location.origin + '/invite/' + item._id];
           }),
           response: response
         });

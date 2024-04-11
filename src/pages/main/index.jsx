@@ -6,10 +6,12 @@ import { Container, Image, TitleContainer, TitleBoxContainer, InfoContainer, Inf
 import image from '../../assets/images/home-gradient.png';
 import Carroussel from './carroussel';
 import api from '../../services/api';
+import Card from '../../components/card';
 
 const Main = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
+    const [click, setClick] = useState(false);
 
     const getUser = async () => {
         try {
@@ -32,6 +34,9 @@ const Main = () => {
 
     return (
                     <Container>
+                        {
+                            !click && <Card name={user?.name} onClick={() => setClick(true)}/>
+                        }
                         <TitleContainer>
                             <Image src={image} alt="image" />
                             <TitleBoxContainer>
