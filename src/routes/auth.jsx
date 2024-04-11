@@ -7,7 +7,7 @@ const Auth = ({ element }) => {
   return isAuthenticated ? (
     element
   ) : (
-    <Navigate to="/signin" replace />
+    <Navigate to="/" replace />
   );
 };
 

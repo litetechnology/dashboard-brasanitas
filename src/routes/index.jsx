@@ -6,6 +6,7 @@ import Link from "../pages/link";
 import Relatorio from "../pages/relatorio";
 import Formulario from "../pages/formulario";
 import Segurance from "../pages/segurance";
+import Access from "../pages/access"
 import Equipe from "../pages/equipe";
 import Error from "../pages/error";
 import Local from '../pages/local';
@@ -21,11 +22,20 @@ import Auth from "./auth";
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<Navigate to="/404" replace/>}/>
-          <Route path="/invite/:id" element={<Main />}/>
-          <Route path="/signin" element={<SignIn />}/>
-          <Route path="/404" element={<Error />}/>
-          <Route path="/" element={<Main />}/>
 
+          <Route path="/404" element={<Error />}/>
+
+          <Route path="/invite/:id" element={<SignIn />}/>
+          <Route path="/" element={<SignIn />}/>
+
+          <Route
+  path="/main"
+  element={<Auth element={<Main />} />}
+/>
+          <Route
+  path="/config/access"
+  element={<Auth element={<Access />} />}
+/>
           <Route
   path="/dashboard"
   element={<Auth element={<Dashboard />} />}

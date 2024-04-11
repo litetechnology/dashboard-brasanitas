@@ -1,73 +1,89 @@
-import React, { useState } from 'react';
-import { AiOutlineHome, AiOutlineFileProtect, AiOutlineSolution, AiOutlinePushpin, AiOutlineIdcard, AiOutlineTool, AiOutlineCar, AiFillCaretDown , AiFillCaretUp, AiOutlineFileSearch } from "react-icons/ai";
+import React, { useEffect, useState } from 'react';
+import { AiOutlineHome, AiOutlineFileProtect, AiOutlineSolution, AiOutlinePushpin, AiOutlineIdcard, AiOutlineTool, AiOutlineCar, AiFillCaretDown , AiFillCaretUp, AiOutlineFileSearch, AiOutlineApi } from "react-icons/ai";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 import { Container, Background, Menu, MenuSelector, Paste } from './styles';
 import logo from '../../assets/images/logos.png';
+import Loading from '../loading';
+import api from '../../services/api';
 
-const folders = [
-  {
-    name: "Operações",
-    isOpen: false,
-    items: [
-      {
-        name: "Visão Geral",
-        icon: AiOutlineHome,
-        route: "/dashboard"
-      },
-      {
-        name: "Relatório",
-        icon: AiOutlineFileProtect,
-        route: "/relatorio"
-      },
-      {
-        name: "Formulário",
-        icon: AiOutlineSolution,
-        route: "/formulario"
-      },
-      {
-        name: "Locais",
-        icon: AiOutlinePushpin,
-        route: "/local"
-      },
-      {
-        name: "Equipe",
-        icon: AiOutlineIdcard,
-        route: "/equipe"
-      },
-      {
-        name: "Equipamentos",
-        icon: AiOutlineTool,
-        route: "/equipamentos"
-      },
-      {
-        name: "Veiculos",
-        icon: AiOutlineCar,
-        route: "/veiculos"
-      }
-    ]
-  },
-  {
-    name: "Segurança",
-    isOpen: false,
-    items: [
-      {
-        name: "Visão Geral",
-        icon: AiOutlineHome,
-        route: "/segurance/dashboard"
-      },
-      {
-        name: "Book",
-        icon: AiOutlineFileSearch,
-        route: "/book"
-      }
-    ]
-  }
-];
 const Layout = ({ children, initialSelect = 'dashboard' }) => {
+
+  const folders = [
+    {
+      name: "Operações",
+      isOpen: false,
+      items: [
+        {
+          name: "Visão Geral",
+          icon: AiOutlineHome,
+          route: "/dashboard"
+        },
+        {
+          name: "Relatório",
+          icon: AiOutlineFileProtect,
+          route: "/relatorio"
+        },
+        {
+          name: "Formulário",
+          icon: AiOutlineSolution,
+          route: "/formulario"
+        },
+        {
+          name: "Locais",
+          icon: AiOutlinePushpin,
+          route: "/local"
+        },
+        {
+          name: "Equipe",
+          icon: AiOutlineIdcard,
+          route: "/equipe"
+        },
+        {
+          name: "Equipamentos",
+          icon: AiOutlineTool,
+          route: "/equipamentos"
+        },
+        {
+          name: "Veiculos",
+          icon: AiOutlineCar,
+          route: "/veiculos"
+        }
+      ]
+    },
+    {
+      name: "Segurança",
+      isOpen: false,
+      items: [
+        {
+          name: "Visão Geral",
+          icon: AiOutlineHome,
+          route: "/segurance/dashboard"
+        },
+        {
+          name: "Book",
+          icon: AiOutlineFileSearch,
+          route: "/book"
+        }
+      ]
+    },
+    {
+      name: "Configuraçoes",
+      isOpen: false,
+      items: [
+        {
+          name: "Acessos",
+          icon: AiOutlineApi,
+          route: "/config/access"
+        }
+      ]
+    }
+  ];
+
 	const [select, setSelect] = useState(initialSelect);
 	const [stateFolders, setStateFolders] = useState(folders);
+  const [user, setUser] = useState(null);
 	const navigate = useNavigate();
   
 	const handleFolderClick = (index) => {
@@ -75,11 +91,28 @@ const Layout = ({ children, initialSelect = 'dashboard' }) => {
 	  updatedFolders[index].isOpen = !updatedFolders[index].isOpen;
 	  setStateFolders(updatedFolders);
 	};
+
+  useEffect(() => {
+      const getUser = async () => {
+        try {
+          const response = await api.get("/auth/me");
+
+          setUser(response.data)
+          localStorage.setItem("user", response.data)
+        } catch (error) {
+          
+        }
+      }
+      getUser()
+  },[])
   
+  if (!user) return <Loading/>
 	const handleMenuItemClick = (menuItem) => {
 	  navigate(menuItem.route);
 	  setSelect(menuItem.name);
 	};
+
+
   
 	return (
 	  <Container>

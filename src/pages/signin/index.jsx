@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import {toast} from 'react-toastify';
 
@@ -6,14 +6,36 @@ import { Container, FormContainer, Title, Form, InputGroup, Label, Input, Forgot
 import setAuthToken from '../../services/setAuthToken';
 import api from '../../services/api';
 
-const LoginForm = () => {
+const SignIn = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const initialName = searchParams.get('name') || ''; 
     const redirect = searchParams.get('redirect'); 
-    const [name, setName] = useState(initialName);
+    const nameParams = searchParams.get('name'); 
+
+    const [initialName, setInitialName] = useState();
     const [password, setPassoword] = useState();
+    const [user, setUser] = useState(null);
+    const [name, setName] = useState('');
+
+    const { id } = useParams();
+
+    const getUser = async () => {
+        try {
+            const response = await api.post("/auth/get", { id });
+            var username = response.data?.name;
+            if (username){
+                setName(username);
+                setInitialName(username);
+                localStorage.setItem('name', username);
+            }
+            setUser(response.data)
+            return response.data;
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -32,6 +54,7 @@ const LoginForm = () => {
             setAuthToken(token);
             const currentUrl = new URL(window.location.href);
             currentUrl.searchParams.set('redirect', 'true');
+            currentUrl.searchParams.set('name', name);
             window.location.href = currentUrl.href;
           } catch (error) {
             if (error.response) {
@@ -44,7 +67,10 @@ const LoginForm = () => {
     };
 
     useEffect(() => {
-        if (redirect || localStorage.getItem("token")) return navigate("/dashboard");
+        if (redirect) return navigate(`/main?name=${nameParams}`);
+        if (localStorage.getItem("token")) return navigate(`/main`);
+
+        if (id) getUser();
     }, [])
 
     return (
@@ -70,4 +96,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default SignIn;

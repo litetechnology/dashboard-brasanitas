@@ -125,7 +125,7 @@ const Dashboard = () => {
                 </DataContainer>
                 <Row>
                 <GraficoPizza
-    name={'Uso de ferramentas'}
+    name={'Tipo de atividade'}
     data={[
         ['ferramenta', 'quantidade'],
         ...(data.statistics.activityCountByTool
