@@ -48,63 +48,7 @@ const Dashboard = () => {
         ]
     })
 
-
-        const getData = async () => {
-            try {
-                const responses = await Promise.all([
-                    api.get('/local/'),
-                    api.get('/plate/'),
-                    api.get('/tool/'),
-                    api.get('/users/'),
-                    api.post('/statistics/')
-                ]);
-                
-                const [local, plate, tool, users, statistics] = responses.map(response => response.data);
-                var allActivities =  plate.reduce((acc, plate) => acc.concat(plate.timeline.map(activity => activity.name)), [])
-                setData({ local, plate, tool, users, statistics,  allActivities});
-            } catch (error) {
-                console.log(error);
-                toast.error("Erro interno ao puxar os dados do formulário")
-            }
-          };
-
           const updateStatistics = async (filtro) => {
-
-            var response = await api.post('/statistics/', { ...filtro});
-            console.log(filtro)
-            response = response.data;
-            setData({...data, statistics: response});
-            setTitles({
-                singleValues: [
-                    {
-                        value: response.totalActivityCount || 0,
-                        description: "Total de atividades"
-                    },
-                    {
-                        value: response.scheduledActivityCount || 0,
-                        description: "Atividades dentro do cronograma"
-                    },
-                    {
-                        value: response.unscheduledActivityCount || 0,
-                        description: "Atividades fora do cronograma"
-                    },
-                    {
-                        value: formatNumber(response.averageWaterConsumption) || 0 ,
-                        description: "Consumo médio de agua"
-                    },
-                    {
-                        value: formatNumber(response.totalWaterConsumption) || 0 ,
-                        description: "Consumo total de agua"
-                    },
-                    {
-                        value: response.adherence || '10/10' ,
-                        description: "Aderencia"
-                    },
-                ]
-            })
-
-          };
-          const updateStatistics2 = async (filtro) => {
 
             var response = await api.post('/statistics/', { ...filtro});
             console.log(filtro)
@@ -142,8 +86,30 @@ const Dashboard = () => {
           };
 
           
+
+        const getData = async () => {
+            try {
+                const responses = await Promise.all([
+                    api.get('/local/'),
+                    api.get('/plate/'),
+                    api.get('/tool/'),
+                    api.get('/users/'),
+                    api.post('/statistics/')
+                ]);
+                
+                const [local, plate, tool, users, statistics] = responses.map(response => response.data);
+                var allActivities =  plate.reduce((acc, plate) => acc.concat(plate.timeline.map(activity => activity.name)), [])
+                setData({ local, plate, tool, users, statistics,  allActivities});
+                updateStatistics()
+            } catch (error) {
+                console.log(error);
+                toast.error("Erro interno ao puxar os dados do formulário")
+            }
+          };
+
+          
           useEffect(() => { getData() }, [])
-          useEffect(() => updateStatistics, [selects])
+   //       useEffect(() => updateStatistics, [selects])
           
 //             <Filter data={data} onChange={x => setSelects(x)}/>
     return (
