@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState} from 'react';
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowRight, FiLogOut } from "react-icons/fi";
 
-import { Container, Image, TitleContainer, TitleBoxContainer, InfoContainer, InfoRow, InfoBox } from './styles';
+import { Container, Image, TitleContainer, TitleBoxContainer, InfoContainer, InfoRow, InfoBox, ButtonsContainer } from './styles';
 import image from '../../assets/images/home-gradient.png';
 import Carroussel from './carroussel';
 import api from '../../services/api';
@@ -10,19 +10,24 @@ import api from '../../services/api';
 const Main = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
-    const { id } = useParams();
 
     const getUser = async () => {
         try {
-            const response = await api.post("/auth/get", { id });
-            setUser(response.data)
+            const response = await api.get("/auth/me");
+            setUser(response.data);
+            console.log(response.data)
         } catch (error) {
             console.log(error)
         }
     };
 
+    const onLogout = async () => {
+        localStorage.clear();
+        navigate('/');
+    }
+
     useEffect(() => {
-        if (id) getUser();
+        getUser();
     }, [])
 
     return (
@@ -32,7 +37,14 @@ const Main = () => {
                             <TitleBoxContainer>
                                 <h1>Controle de atividades complexo Vargem Grande</h1>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et lectus a nisl iaculis volutpat. Etiam dictum varius nulla non dictum. Vivamus rhoncus posuere porttitor. Cras luctus, quam non consectetur fermentum, enim velit finibus tortor, non cursus tortor massa at urna. Sed rutrum faucibus lacus vel malesuada.</p>
-                                <button onClick={() => id ? navigate(`/signin?id=${id}&name=${user?.name}`) : navigate('/signin')} >ACESSAR <FiArrowRight size={20}/> </button>
+                                <ButtonsContainer>
+                                    <button onClick={() => navigate('/shared/operation') } >OPERAÇÃO<FiArrowRight size={20}/> </button>
+                                    <button onClick={() => navigate('/shared/segurance')} >SEGURANÇA<FiArrowRight size={20}/> </button>
+                                    {
+                                        user?.admin && <button onClick={() => navigate('/dashboard')} >DASHBOARD<FiArrowRight size={20}/> </button>
+                                    }
+                                    <button className="logout" onClick={onLogout} >SAIR<FiLogOut size={20}/> </button>
+                                </ButtonsContainer>
                             </TitleBoxContainer>
                         </TitleContainer>
 

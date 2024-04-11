@@ -1,33 +1,21 @@
+// DatePicker.jsx
 import React, { useState, useEffect } from "react";
 import { DateInputContainer, Input } from "./styles";
-import { format, parseISO, getDay } from 'date-fns';
+import { format } from 'date-fns'; 
+import ptBR from 'date-fns/locale/pt-BR';
 
 const DatePicker = ({ onChange, date = "", color = "#333", width = '200px', autoDate = false }) => {
   const [selectedDate, setSelectedDate] = useState(autoDate ? format(new Date(), 'yyyy-MM-dd') : date);
 
-  useEffect(() => {
-    if (onChange) {
-      const parsedDate = parseISO(selectedDate);
-      const formattedDate = format(parsedDate, 'dd/MM/yyyy');
-      const dayOfWeekIndex = getDay(parsedDate);
-      const dayOfWeek = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][dayOfWeekIndex];
-      onChange(formattedDate, dayOfWeek);
-    }
-  }, [selectedDate, autoDate]);
-
   const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+    const selectedDate = event.target.value;
+    setSelectedDate(selectedDate);
+    onChange(selectedDate);
   };
 
   useEffect(() => {
     if (autoDate) {
-      setSelectedDate((prevDate) => {
-        const currentDate = format(new Date(), 'yyyy-MM-dd');
-        if (prevDate !== currentDate) {
-          return currentDate;
-        }
-        return prevDate;
-      });
+      setSelectedDate(format(new Date(), 'yyyy-MM-dd'));
     }
   }, [autoDate]);
 
@@ -35,7 +23,7 @@ const DatePicker = ({ onChange, date = "", color = "#333", width = '200px', auto
     <DateInputContainer>
       <Input
         onChange={handleDateChange}
-        value={autoDate && !date ? selectedDate : date}
+        value={selectedDate}
         type="date"
         color={color}
         width={width}

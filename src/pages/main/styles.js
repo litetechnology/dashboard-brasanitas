@@ -53,7 +53,7 @@ export const TitleBoxContainer = styled.div`
         display: flex;
         inset: unset;
         border: none;
-
+        margin: 0 20px;
         &:hover{
             letter-spacing: 1px;
             transition: 0.5s;
@@ -66,6 +66,14 @@ export const TitleBoxContainer = styled.div`
             color: #066687;
         }
 
+    }
+
+    button:first-child{
+        margin-left: 0;
+    }
+
+    .logout, .logout > svg{
+        color: #DC143C;
     }
 `;
 
@@ -122,4 +130,11 @@ export const InfoBox = styled.div`
         color: #363636;
         font-size: 16px;
     }
+`
+
+export const ButtonsContainer = styled.div`
+ flex-direction: row;
+ align-items: center;
+ display: flex;
+ width: 100%;
 `

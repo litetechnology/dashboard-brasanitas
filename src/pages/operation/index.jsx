@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { toast } from 'react-toastify';
 
-import Layout from '../../components/layout';
 import Filter from '../../components/filter';
 import { Container, DataContainer, BoxDataContainer, Row} from './styles';
 
@@ -11,7 +10,7 @@ import Combo from './charts/combo';
 import api from '../../services/api';
 import Barra from './charts/barra';
 
-const Dashboard = () => {
+const SharedDashboard = () => {
     
     const [selects, setSelects] = useState({local:[], plate:[], tool:[], users:[], allActivities:[], start:'', end:''});
     const [data, setData] = useState({local:[], plate:[], tool:[], users:[], statistics:{}, allActivities:[]});
@@ -147,9 +146,8 @@ const Dashboard = () => {
           
 //             <Filter data={data} onChange={x => setSelects(x)}/>
     return (
-        <Layout initialSelect="Dashboard">
- <Filter data={data} onChange={x => setSelects(x) & updateStatistics(x)}/>
-             <Container>
+        <Container>
+                 <Filter data={data} onChange={x => setSelects(x) & updateStatistics(x)}/>
                 <DataContainer>
                      {
                         titles.singleValues?.map((item, i) => (
@@ -208,8 +206,7 @@ const Dashboard = () => {
 
                 </Row>
              </Container>
-        </Layout>
     )
 }
 
-export default Dashboard
+export default SharedDashboard

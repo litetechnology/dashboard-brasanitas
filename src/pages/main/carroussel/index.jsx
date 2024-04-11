@@ -4,6 +4,7 @@ import c1 from '../../../assets/images/c1.png';
 import c2 from '../../../assets/images/c2.png';
 import c3 from '../../../assets/images/c3.png';
 import c4 from '../../../assets/images/c4.png';
+import c5 from '../../../assets/images/c5.png';
 
 const scroll = keyframes`
   0% {

@@ -16,6 +16,7 @@ import Book from "../pages/book";
 import SignIn from "../pages/signin";
 
 import Auth from "./auth";
+import SharedDashboard from "../pages/operation";
 
   export const Router = () => {
     return(
@@ -39,6 +40,10 @@ import Auth from "./auth";
           <Route
   path="/dashboard"
   element={<Auth element={<Dashboard />} />}
+/>
+          <Route
+  path="/shared/operation"
+  element={<Auth element={<SharedDashboard />} />}
 />
 <Route
   path="/link/dashboard"
