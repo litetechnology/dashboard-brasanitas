@@ -13,7 +13,7 @@ import { EditContainer, } from './styles';
 import api from '../../services/api';
 
 const Equipe = () => {
-  const [data, setData] = useState({titles: ['nome', 'data de criação', 'valido durante', 'expira em'], response:[],values:[]});
+  const [data, setData] = useState({titles: ['nome', 'data de criação', 'convite'], response:[],values:[]});
   const [onEdit, setOnEdit] = useState(false);  
 
 
@@ -28,7 +28,7 @@ const Equipe = () => {
             const name = item.name;
             const creationDate = formatDate(item.date);
             const daysSinceCreation = calculateDaysSinceCreation(item.date);
-            return [name, creationDate, item.validateSize == 0 ? '' : `${item.validateSize} dias`, item.validateSize == 0 ? 'não expira' : `${item.validateSize - daysSinceCreation} dias`];
+            return [name, creationDate, window.location.origin + '/invite/' + item._id, item.validateSize == 0 ? '' : `${item.validateSize} dias`, item.validateSize == 0 ? 'não expira' : `${item.validateSize - daysSinceCreation} dias`];
           }),
           response: response
         });
@@ -91,21 +91,21 @@ const Equipe = () => {
             if (update) {
 
               const response = await toast.promise(
-                api.put('/users/update', { id: onEdit._id, data: { name: name, validateSize: validateSize ? validateSize : 0 } }),
+                api.put('/auth/update', { id: onEdit._id, data: { name: name, validateSize: validateSize ? validateSize : 0 } }),
                 {
-                  pending: 'Atualizando funcionário',
-                  success: 'Funcionário atualizado com sucesso',
-                  error: 'Erro interno ao atualizar funcionário'
+                  pending: 'Atualizando acesso',
+                  success: 'Acesso atualizado com sucesso',
+                  error: 'Erro interno ao atualizar acesso'
                 }
               );
 
             } else {
               const response = await toast.promise(
-                api.post('/users/create', { name: name, validateSize: validateSize ? validateSize : 0}),
+                api.post('/auth/create', { name: name, flags:[], validateSize: validateSize ? validateSize : 0}),
                 {
-                  pending: 'Salvando funcionário',
-                  success: 'Funcionário salvo com sucesso',
-                  error: 'Erro interno ao salvar funcionário'
+                  pending: 'Salvando acesso',
+                  success: 'Acesso salvo com sucesso',
+                  error: 'Erro interno ao salvar acesso'
                 }
               );
 
@@ -124,8 +124,8 @@ const Equipe = () => {
         <EditContainer>
 
            
-            <Input Icon={AiOutlineUser} placeholder='Nome do funcionário' value={name} onInput={(x) => setName(x)} />
-            <Input Icon={AiOutlineRetweet} placeholder='Expiração do funcionário, 0 por padrão' value={validateSize} onInput={(x) => setValidateSize(x)} />
+            <Input Icon={AiOutlineUser} placeholder='Nome do convidado' value={name} onInput={(x) => setName(x)} />
+            <Input Icon={AiOutlineRetweet} placeholder='Expiração do acesso, 0 por padrão' value={validateSize} onInput={(x) => setValidateSize(x)} />
             <div className="buttons">
               <Button center name='CANCELAR' onButton={() => setOnEdit(false)}/>
               <Button center name={update ? 'ATUALIZAR' : 'CRIAR'} onButton={sendData}/>
