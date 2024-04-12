@@ -28,6 +28,7 @@ import SharedDashboard from "../pages/operation";
 
           <Route path="/invite/:id" element={<SignIn />}/>
           <Route path="/" element={<SignIn />}/>
+          <Route path="/formulario" element={<Formulario/>} />
 
           <Route
   path="/main"

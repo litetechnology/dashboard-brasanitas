@@ -30,7 +30,7 @@ const CarrousselItem = styled.img`
   margin: 0 20px; 
 `;
 
-const Carroussel = () => {
+const Carroussel = ({teste}) => {
   const carroussel = [c1, c2, c3];
   const numItems = Math.ceil(100 / carroussel.length);
 
@@ -38,7 +38,7 @@ const Carroussel = () => {
 
   return (
     <CarrousselContainer>
-      <CarrousselInner>
+      <CarrousselInner teste>
         {duplicatedItems.map((image, index) => (
           <CarrousselItem src={image} alt={`Carousel Item ${index}`} key={index} />
         ))}
