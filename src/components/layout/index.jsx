@@ -8,7 +8,7 @@ import logo from '../../assets/images/logos.png';
 import Loading from '../loading';
 import api from '../../services/api';
 
-const Layout = ({ children, initialSelect = 'dashboard' }) => {
+const Layout = ({ children, initialSelect = 'dashboard', disable=false }) => {
 
   const folders = [
     {
@@ -106,7 +106,7 @@ const Layout = ({ children, initialSelect = 'dashboard' }) => {
       getUser()
   },[])
   
-  if (!user) return <Loading/>
+  if (!user && !disable) return <Loading/>
 	const handleMenuItemClick = (menuItem) => {
 	  navigate(menuItem.route);
 	  setSelect(menuItem.name);

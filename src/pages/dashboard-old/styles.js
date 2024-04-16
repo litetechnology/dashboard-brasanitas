@@ -7,7 +7,7 @@ export const Container = styled.div`
     width: 100%;
 `
 
-export const TitleBox = styled.div`
+export const BoxDataContainer = styled.div`
     background-color: ${({theme}) => theme.colors.secondaryBackground};
     justify-content: space-around;
     flex-direction: column;
@@ -33,7 +33,7 @@ export const TitleBox = styled.div`
         font-size: 14px;
     }
 `
-export const TitlesContainer = styled.div`
+export const DataContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
