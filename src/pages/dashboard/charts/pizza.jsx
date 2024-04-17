@@ -1,18 +1,8 @@
 import React from 'react';
 import { Chart } from 'react-google-charts';
+import Loading from '../../../components/loading';
 
-const Pizza = ({name, data}) => {
-
-    const shuffleColors = (colors) => {
-        const shuffledColors = [...colors];
-      
-        for (let i = shuffledColors.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [shuffledColors[i], shuffledColors[j]] = [shuffledColors[j], shuffledColors[i]];
-        }
-      
-        return shuffledColors;
-      };
+const Pizza = ({name, data, onClick}) => {
 
   const options = {
     title: name,
@@ -30,14 +20,17 @@ const Pizza = ({name, data}) => {
   };
 
   return (
+    <div onClick={onClick}>
+    
     <Chart
       width={'40vw'}
       height={'300px'}
       chartType="PieChart"
-      loader={<div>Carregando...</div>}
+      loader={<Loading/>}
       data={data}
       options={options}
     />
+    </div>
   );
 };
 

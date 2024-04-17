@@ -34,6 +34,27 @@ const getTitles = async (form) => {
     return Object.values(initialCount);
 }
 
+const getActionByTool = async (form) => {
+    const initialCount = {}
+
+    await Promise.all(form.map(async (item) => {
+        item.tool.map(async (tool) => {
+            initialCount[tool] =  (initialCount[tool] || 0) + 1;
+        });
+    }))
+
+    return initialCount.length == 0 ? [] : [...Object.entries(initialCount).map(([key,value]) => [key, value])];
+}
+const getActionByPlate = async (form) => {
+    const initialCount = {}
+
+    await Promise.all(form.map(async (item) => {
+            if (item.plate?.name) initialCount[item.plate.name] =  (initialCount[item.plate.name] || 0) + 1;
+    }))
+    
+    return initialCount.length == 0 ? [] : [...Object.entries(initialCount).map(([key,value]) => [key, value])];
+}
+
 export const processData = async ({filters, data}) => {
     var { start, end } = filters;
 
@@ -54,10 +75,12 @@ export const processData = async ({filters, data}) => {
             return formDate < endDate;
         });
     }
-    
+
     const titles = await getTitles(filteredData);
+    const actionBytool = await getActionByTool(filteredData);
+    const actionByPlate = await getActionByPlate(filteredData);
 
     return  {
-        titles
+        titles, actionBytool, filteredData, actionByPlate
     }
 };
