@@ -11,9 +11,10 @@ import { processData } from './services/processor';
 import Combo from './charts/combo';
 import Barra from './charts/barra';
 import Loading from '../../components/loading';
+import Button from '../../components/button';
 
 import ActionByTool from './subpages/actionByTool';
-import Button from '../../components/button';
+import ActionByPlate from './subpages/actionByPlate';
 
 const titles = ['Total de atividades', 'Atividades dentro do cronograma', 'Atividades fora do cronograma', 'Consumo médio de água', 'Consumo total de água', 'Aderência'];
 
@@ -60,7 +61,7 @@ const Dashboard = () => {
                 return <ActionByTool data={visibleData.filteredData} onBack={() => setSecondPage(null)}/>
             break
             case 2:
-                return <ActionByTool/>
+                return <ActionByPlate data={visibleData.filteredData} onBack={() => setSecondPage(null)}/>
             break
             case 3:
                 return <ActionByTool/>
