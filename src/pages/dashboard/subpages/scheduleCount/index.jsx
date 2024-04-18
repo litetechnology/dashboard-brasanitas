@@ -7,7 +7,7 @@ import LineChart from '../../charts/line';
 import Button from '../../../../components/button';
 import { AiOutlineRollback  } from "react-icons/ai"
 
-const ActionByTool = ({data, onBack}) => {
+const ScheduledCount = ({data, onBack}) => {
     const [group, setGroup] = useState([]);
     const [table, setTable] = useState({titles: ['ordem', 'atividades dentro do cronograma', 'atividades fora do cronograma', 'equipamentos', 'placa', 'data'], values:[]})
 
@@ -20,17 +20,21 @@ const ActionByTool = ({data, onBack}) => {
             const month = date.getMonth() + 1;
             const year = date.getFullYear();
             const monthYear = `${month}/${year}`; // Representação do mês como "mês/ano"
-            const tools = item.tool;
+            const generalActions = [...item.actions, ...item.forActions];
+            console.log(generalActions)
+      
       
             if (!initialCount[monthYear]) {
               initialCount[monthYear] = {};
             }
       
-            tools.forEach((tool) => {
-              initialCount[monthYear][tool] = (initialCount[monthYear][tool] || 0) + 1;
+            generalActions.forEach((action) => {
+              initialCount[monthYear][action] = (initialCount[monthYear][action] || 0) + 1;
             });
           })
         );
+
+        return console.log(initialCount)
       
         var allNames = Object.values(initialCount).flatMap(x => Object.keys(x));
         allNames = Array.from(new Set(allNames));
@@ -85,4 +89,4 @@ const ActionByTool = ({data, onBack}) => {
     )
 }
 
-export default ActionByTool;
+export default ScheduledCount;

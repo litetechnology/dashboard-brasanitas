@@ -45,6 +45,10 @@ const getActionByTool = async (form) => {
 
     return initialCount.length == 0 ? [] : [...Object.entries(initialCount).map(([key,value]) => [key, value])];
 }
+
+const getScheduleCount = async (data) => {
+    return [["dentro do cronograma", data[1]],["fora do cronograma", data[2]]];
+}
 const getActionByPlate = async (form) => {
     const initialCount = {}
 
@@ -79,8 +83,9 @@ export const processData = async ({filters, data}) => {
     const titles = await getTitles(filteredData);
     const actionBytool = await getActionByTool(filteredData);
     const actionByPlate = await getActionByPlate(filteredData);
+    const scheduledCount = await getScheduleCount(titles);
 
     return  {
-        titles, actionBytool, filteredData, actionByPlate
+        titles, actionBytool, filteredData, actionByPlate, scheduledCount
     }
 };

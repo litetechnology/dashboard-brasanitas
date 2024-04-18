@@ -5,7 +5,6 @@ import Loading from '../../../components/loading';
 const Combo = ({ activitiesData }) => {
   const options = {
     seriesType: "bars",
-    series: { 5: { type: "line" } },
     title: name,
 
     slices: [

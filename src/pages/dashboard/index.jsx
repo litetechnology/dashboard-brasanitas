@@ -13,15 +13,16 @@ import Barra from './charts/barra';
 import Loading from '../../components/loading';
 import Button from '../../components/button';
 
-import ActionByTool from './subpages/actionByTool';
+import ScheduledCount from './subpages/scheduleCount';
 import ActionByPlate from './subpages/actionByPlate';
+import ActionByTool from './subpages/actionByTool';
 
 const titles = ['Total de atividades', 'Atividades dentro do cronograma', 'Atividades fora do cronograma', 'Consumo médio de água', 'Consumo total de água', 'Aderência'];
 
 const Dashboard = () => {
     
     const [data, setData] = useState({ local: [], plate: [], tool: [], users: [], form: [] });
-    const [visibleData, setVisibleData] = useState({ titles, actionBytool: [], filteredData:[], actionByPlate: [] });
+    const [visibleData, setVisibleData] = useState({ titles, actionBytool: [], filteredData:[], actionByPlate: [], scheduledCount: [] });
     const [filters, setFilters] = useState({ start: '', end: '' });
     const [secondPage, setSecondPage] = useState(null);
     const [loaded, setLoaded] = useState(false);
@@ -64,7 +65,7 @@ const Dashboard = () => {
                 return <ActionByPlate data={visibleData.filteredData} onBack={() => setSecondPage(null)}/>
             break
             case 3:
-                return <ActionByTool/>
+                return <ScheduledCount data={visibleData.filteredData} onBack={() => setSecondPage(null)}/>
             break
         }
     }
@@ -101,6 +102,16 @@ const Dashboard = () => {
                                 onClick={() => setSecondPage(2)}
                             />
 
+                        </Row>
+                        <Row>
+                            <GraficoPizza
+                                name='Atividades do cronograma'
+                                data={[
+                                    ['tipo', 'quantidade'],
+                                    ...visibleData.scheduledCount
+                                ]}
+                                onClick={() => setSecondPage(3)}
+                            />
                         </Row>
                     </>
                 ) : (
