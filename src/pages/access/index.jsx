@@ -54,7 +54,7 @@ const Equipe = () => {
       try {
     
         const response = await toast.promise(
-          api.delete('/users/delete', { data: { id: user._id } }),
+          api.delete('/auth/delete', { data: { id: user._id } }),
           {
             pending: 'Apagando acesso',
             success: 'Acesso apagado com sucesso',
@@ -91,7 +91,7 @@ const Equipe = () => {
             if (update) {
 
               const response = await toast.promise(
-                api.put('/auth/update', { id: onEdit._id, data: { name: name, validateSize: validateSize ? validateSize : 0 } }),
+                api.put('/auth/update', { id: onEdit._id, data: { name: name.toLowerCase(), validateSize: validateSize ? validateSize : 0 } }),
                 {
                   pending: 'Atualizando acesso',
                   success: 'Acesso atualizado com sucesso',
@@ -101,7 +101,7 @@ const Equipe = () => {
 
             } else {
               const response = await toast.promise(
-                api.post('/auth/create', { name: name, flags:[], validateSize: validateSize ? validateSize : 0}),
+                api.post('/auth/create', { name: name.toLowerCase(), flags:[], validateSize: validateSize ? validateSize : 0}),
                 {
                   pending: 'Salvando acesso',
                   success: 'Acesso salvo com sucesso',
