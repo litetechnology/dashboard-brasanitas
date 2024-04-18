@@ -14,6 +14,7 @@ import Loading from '../../components/loading';
 import Button from '../../components/button';
 
 import ScheduledCount from './subpages/scheduleCount';
+import WaterConsumption from './subpages/waterConsumption';
 import ActionByPlate from './subpages/actionByPlate';
 import ActionByTool from './subpages/actionByTool';
 
@@ -22,7 +23,7 @@ const titles = ['Total de atividades', 'Atividades dentro do cronograma', 'Ativi
 const Dashboard = () => {
     
     const [data, setData] = useState({ local: [], plate: [], tool: [], users: [], form: [] });
-    const [visibleData, setVisibleData] = useState({ titles, actionBytool: [], filteredData:[], actionByPlate: [], scheduledCount: [] });
+    const [visibleData, setVisibleData] = useState({ titles, actionBytool: [], filteredData:[], actionByPlate: [], scheduledCount: [], waterConsumption:[] });
     const [filters, setFilters] = useState({ start: '', end: '' });
     const [secondPage, setSecondPage] = useState(null);
     const [loaded, setLoaded] = useState(false);
@@ -66,6 +67,9 @@ const Dashboard = () => {
             break
             case 3:
                 return <ScheduledCount data={visibleData.filteredData} onBack={() => setSecondPage(null)}/>
+            break
+            case 4:
+                return <WaterConsumption data={visibleData.filteredData} onBack={() => setSecondPage(null)}/>
             break
         }
     }
@@ -111,6 +115,14 @@ const Dashboard = () => {
                                     ...visibleData.scheduledCount
                                 ]}
                                 onClick={() => setSecondPage(3)}
+                            />
+                            <Barra
+                                name='Uso de agua por atividade'
+                                data={[
+                                    ['local', 'quantidade'],
+                                    ...visibleData.waterConsumption
+                                ]}
+                                onClick={() => setSecondPage(4)}
                             />
                         </Row>
                     </>

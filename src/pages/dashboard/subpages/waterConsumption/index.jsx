@@ -7,7 +7,7 @@ import LineChart from '../../charts/line';
 import Button from '../../../../components/button';
 import { AiOutlineRollback  } from "react-icons/ai"
 
-const ScheduledCount = ({data, onBack}) => {
+const WaterConsumption = ({data, onBack}) => {
     const [group, setGroup] = useState([]);
     const [table, setTable] = useState({titles: ['ordem', 'atividades dentro do cronograma', 'atividades fora do cronograma', 'equipamentos', 'placa', 'data'], values:[]})
 
@@ -20,21 +20,18 @@ const ScheduledCount = ({data, onBack}) => {
             const month = date.getMonth() + 1;
             const year = date.getFullYear();
             const monthYear = `${month}/${year}`; // Representação do mês como "mês/ano"
-            const generalActions = [...item.actions, ...item.forActions];
-            console.log(generalActions)
-      
+            const totalWater = item.water;
       
             if (!initialCount[monthYear]) {
               initialCount[monthYear] = {};
             }
-      
-            generalActions.forEach((action) => {
-              initialCount[monthYear][action] = (initialCount[monthYear][action] || 0) + 1;
+            
+            totalWater.forEach(({action, water}) => {
+              initialCount[monthYear][action] = Number(initialCount[monthYear][action] || 0) + Number(water);
             });
           })
         );
-
-
+        console.log(initialCount)
       
         var allNames = Object.values(initialCount).flatMap(x => Object.keys(x));
         allNames = Array.from(new Set(allNames));
@@ -89,4 +86,4 @@ const ScheduledCount = ({data, onBack}) => {
     )
 }
 
-export default ScheduledCount;
+export default WaterConsumption;

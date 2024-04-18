@@ -45,6 +45,22 @@ const getActionByTool = async (form) => {
 
     return initialCount.length == 0 ? [] : [...Object.entries(initialCount).map(([key,value]) => [key, value])];
 }
+const getWaterConsumption = async (form) => {
+    var initialCount = {}
+
+    await Promise.all(form.map(async (item) => {
+        item.water.map(async (waterEntry) => {
+            const { action, water } = waterEntry;
+            const waterValue = Number(water);
+            initialCount[action] = (initialCount[action] || 0) + waterValue;
+        });
+    }))
+    const countsArray = Object.entries(initialCount);
+    const sortedCounts = countsArray.sort((a, b) => b[1] - a[1]);
+    initialCount= sortedCounts.slice(0, 10);
+
+    return initialCount.length == 0 ? [] : [...initialCount];
+}
 
 const getScheduleCount = async (data) => {
     return [["dentro do cronograma", data[1]],["fora do cronograma", data[2]]];
@@ -84,8 +100,9 @@ export const processData = async ({filters, data}) => {
     const actionBytool = await getActionByTool(filteredData);
     const actionByPlate = await getActionByPlate(filteredData);
     const scheduledCount = await getScheduleCount(titles);
+    const waterConsumption = await getWaterConsumption(filteredData);
 
     return  {
-        titles, actionBytool, filteredData, actionByPlate, scheduledCount
+        titles, actionBytool, filteredData, actionByPlate, scheduledCount, waterConsumption
     }
 };
