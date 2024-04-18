@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Container, Box, Title, Question, LabelContainer } from './styles';
 import Dropdown from '../../components/Dropdown';
 import Button from '../../components/button';
-import Date from '../../components/date';
+import Date from '../../components/formDate';
 import api from '../../services/api';
 
 const Form = () => {

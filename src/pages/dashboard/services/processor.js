@@ -96,6 +96,11 @@ export const processData = async ({filters, data}) => {
         });
     }
 
+    if (filters.local.length != 0) filteredData = filteredData.filter(x => filters.local.some(word => x.local.includes(word)));
+    if (filters.plate.length != 0) filteredData = filteredData.filter(x => x.plate?.name ?  filters.plate.some(word => x?.plate.name.includes(word)) : false);
+    if (filters.users.length != 0) filteredData = filteredData.filter(x => filters.users.some(word => x.user.includes(word)));
+
+
     const titles = await getTitles(filteredData);
     const actionBytool = await getActionByTool(filteredData);
     const actionByPlate = await getActionByPlate(filteredData);

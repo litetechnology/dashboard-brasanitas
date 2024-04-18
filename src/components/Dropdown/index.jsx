@@ -68,7 +68,7 @@ const MultiSelectDropdown = ({ options, days = [], onChange, name = "Selecione",
                 <CheckboxInput
                   type="checkbox"
                   checked={selectedOptions.includes(option)}
-                  onChange={() => handleCheckboxChange(option, index)}
+                  onChange={() => handleCheckboxChange(option, index) & setIsOpen(false)}
                 />
                 {option}
               </CheckboxLabel>

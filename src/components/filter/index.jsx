@@ -7,8 +7,7 @@ import { Container } from './styles';
 import DatePicker from '../date';
 
 
-const Filter = ({ filters, setFilters, onChange }) => {
-
+const Filter = ({ filters, setFilters, onChange, data }) => {
   return (
     <Container>
       <div className="item">
@@ -18,13 +17,13 @@ const Filter = ({ filters, setFilters, onChange }) => {
         <DatePicker onChange={x => setFilters({...filters, end: x}) & onChange({...filters, end: x})} date={filters.end} />
       </div>
       <div className="item">
-        <MultiSelectDropdown/>
+        <MultiSelectDropdown options={data.local.map(x => x.name)} name='Local' onChange={x => setFilters({...filters, local: x}) & onChange({...filters, local: x})}/>
       </div>
       <div className="item">
-        <MultiSelectDropdown/>
+        <MultiSelectDropdown options={data.plate.map(x => x.name)} name='Placa' onChange={x => setFilters({...filters, plate: x}) & onChange({...filters, plate: x})}/>
       </div>
       <div className="item">
-        <MultiSelectDropdown/>
+       <MultiSelectDropdown options={data.users.map(x => x.name)} name='Responsavel' onChange={x => setFilters({...filters, users: x}) & onChange({...filters, users: x})}/>
       </div>
     </Container>
   );
