@@ -57,7 +57,7 @@ const Dashboard = () => {
 
     useEffect(() => { getData() }, []);
 
-    if (!loaded) return <Loading layout />;
+    if (!loaded) return <Loading  />;
 
     const SecondPageComponent = () => {
         switch(secondPage){

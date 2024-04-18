@@ -11,7 +11,7 @@ import Card from '../../components/card';
 const Main = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
-    const [click, setClick] = useState(false);
+    const [click, setClick] = useState(true);
 
     const getUser = async () => {
         try {
@@ -29,13 +29,15 @@ const Main = () => {
     }
 
     useEffect(() => {
+        var save = localStorage.getItem('save')
+        if (!save) setClick(false);
         getUser();
     }, [])
 
     return (
                     <Container>
                         {
-                            !click && <Card name={user?.name} onClick={() => setClick(true)}/>
+                            !click && <Card name={user?.name} onClick={() => setClick(true) & localStorage.setItem('save', true)}/>
                         }
                         <TitleContainer>
                             <Image src={image} alt="image" />
