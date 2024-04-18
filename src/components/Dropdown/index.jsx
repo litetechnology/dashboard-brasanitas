@@ -1,5 +1,5 @@
 import { AiOutlineDown } from 'react-icons/ai';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import {
   DropdownContainer,
@@ -16,6 +16,20 @@ const MultiSelectDropdown = ({ options, days = [], onChange, name = "Selecione",
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(days);
   const [selectedOption, setSelectedOption] = useState(null);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
 
   useEffect(() => {
     if (oneSelect && selectedOptions.length > 1) {
@@ -51,7 +65,7 @@ const MultiSelectDropdown = ({ options, days = [], onChange, name = "Selecione",
   };
 
   return (
-    <DropdownContainer>
+    <DropdownContainer ref={dropdownRef}>
       <DropdownButton onClick={toggleDropdown} width={width} color={color}>
         {name}
         <IconWrapper>
@@ -62,7 +76,7 @@ const MultiSelectDropdown = ({ options, days = [], onChange, name = "Selecione",
       </DropdownButton>
       {isOpen && (
         <DropdownList width={width} color={color}>
-          {options?.length!= 0 && options?.map((option, index) => (
+          {options?.length !== 0 && options?.map((option, index) => (
             <ListItem key={option}>
               <CheckboxLabel>
                 <CheckboxInput
