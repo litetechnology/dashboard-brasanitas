@@ -16,7 +16,7 @@ import Book from "../pages/book";
 import SignIn from "../pages/signin";
 
 import Auth from "./auth";
-import SharedDashboard from "../pages/operation";
+import SharedDashboard from "../pages/sharedDashboard";
 
   export const Router = () => {
     return(
