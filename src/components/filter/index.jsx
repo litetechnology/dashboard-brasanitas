@@ -1,5 +1,5 @@
 // Filter.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { subMonths, format, addMonths } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import MultiSelectDropdown from '../Dropdown';
@@ -7,7 +7,15 @@ import { Container } from './styles';
 import DatePicker from '../date';
 
 
-const Filter = ({ filters, setFilters, onChange, data }) => {
+const Filter = ({ filters, setFilters, onChange, data, onActionFilter=false}) => {
+  const [list, setList] = useState([])
+
+  useEffect(()=> {
+    var newList = []
+    data.plate.map(plate => plate.timeline.map(item => newList.push(item.name)))
+    newList = [...new Set(newList)]
+    setList(newList)
+  },[])
   return (
     <Container>
       <div className="item">
@@ -25,6 +33,13 @@ const Filter = ({ filters, setFilters, onChange, data }) => {
       <div className="item">
        <MultiSelectDropdown options={data.users.map(x => x.name)} name='Responsavel' onChange={x => setFilters({...filters, users: x}) & onChange({...filters, users: x})}/>
       </div>
+      {
+        onActionFilter && (
+      <div className="item">
+       <MultiSelectDropdown options={list} name='Atividades' onChange={x => setFilters({...filters, users: x}) & onChange({...filters, users: x})}/>
+      </div>
+        )
+      }
     </Container>
   );
 };

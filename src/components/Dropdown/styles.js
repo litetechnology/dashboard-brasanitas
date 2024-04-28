@@ -32,6 +32,9 @@ export const DropdownList = styled.ul`
   list-style: none;
   width: ${({width}) => width};
   padding: 8px;
+  max-height: 35vh;
+  height: auto;
+  overflow-y: scroll;
   margin: 0;
   z-index: 15;
 `;

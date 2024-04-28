@@ -76,7 +76,7 @@ const Dashboard = () => {
     return (
         <Layout initialSelect="Dashboard" disable>
 
-            <Filter data={data} filters={filters} setFilters={setFilters} onChange={x => updateVisibleData(null, x)}/>
+            <Filter data={data} filters={filters} setFilters={setFilters} onChange={x => updateVisibleData(null, x)} onActionFilter={secondPage != null}/>
             <Container>
                 {secondPage == null ? (
                     <>
