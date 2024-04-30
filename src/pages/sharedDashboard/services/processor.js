@@ -1,4 +1,5 @@
 import formatNumber from "../../../services/formatNumber";
+
 const getTitles = async (form) => {
     const initialCount = {
         total: 0,
@@ -65,6 +66,24 @@ const getWaterConsumption = async (form) => {
 const getScheduleCount = async (data) => {
     return [["dentro do cronograma", data[1]],["fora do cronograma", data[2]]];
 }
+
+const getAllTimelineProcessor = (form, filters) => {
+    console.log(1)
+    form = form.sort((a, b) => new Date( a.fill) - new Date(b.fill));
+
+    if (filters.start){
+        const startDate = new Date(filters.start);
+    } else {
+        
+    } 
+
+    if (filters.end){
+        const endDate = new Date(filters.end);
+    } else {
+
+    } 
+};
+
 const getActionByPlate = async (form) => {
     const initialCount = {}
 
@@ -99,9 +118,16 @@ export const processData = async ({filters, data}) => {
     if (filters.local.length != 0) filteredData = filteredData.filter(x => filters.local.some(word => x.local.includes(word)));
     if (filters.plate.length != 0) filteredData = filteredData.filter(x => x.plate?.name ?  filters.plate.some(word => x?.plate.name.includes(word)) : false);
     if (filters.users.length != 0) filteredData = filteredData.filter(x => filters.users.some(word => x.user.includes(word)));
+    if (filters.actions.length != 0){
+        filteredData = filteredData.filter(x => {
+            var allActions = [...x.actions, ...x.forActions];
+            return filters.actions.some(word => allActions.includes(word))
+        })
+    }
 
 
     const titles = await getTitles(filteredData);
+    const getAllTimeline = await getAllTimelineProcessor(filteredData, filters)
     const actionBytool = await getActionByTool(filteredData);
     const actionByPlate = await getActionByPlate(filteredData);
     const scheduledCount = await getScheduleCount(titles);

@@ -36,7 +36,7 @@ const Filter = ({ filters, setFilters, onChange, data, onActionFilter=false}) =>
       {
         onActionFilter && (
       <div className="item">
-       <MultiSelectDropdown options={list} name='Atividades' onChange={x => setFilters({...filters, users: x}) & onChange({...filters, users: x})}/>
+       <MultiSelectDropdown options={list} name='Atividades' onChange={x => setFilters({...filters, actions: x}) & onChange({...filters, actions: x})}/>
       </div>
         )
       }

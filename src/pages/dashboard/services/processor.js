@@ -1,6 +1,8 @@
 import formatNumber from "../../../services/formatNumber";
-const getTitles = async (form) => {
+
+const getTitles = async (form, getAllTimeline) => {
     const initialCount = {
+        getAllTimeline,
         total: 0,
         actions: 0,
         forActions: 0,
@@ -18,7 +20,6 @@ const getTitles = async (form) => {
         item.water.map(async (waterEntry) => {
             const { action, water } = waterEntry;
             const waterValue = Number(water);
-            //initialValue.waterConsumptionByActivity[action] = (initialValue.waterConsumptionByActivity[action] || 0) + waterValue;
             initialCount.totalWater += waterValue;
         });
 
@@ -65,6 +66,48 @@ const getWaterConsumption = async (form) => {
 const getScheduleCount = async (data) => {
     return [["dentro do cronograma", data[1]],["fora do cronograma", data[2]]];
 }
+
+const getAllTimelineProcessor = (form, filters, data) => {
+    form = form.sort((a, b) => new Date( a.date) - new Date(b.date));
+    if (!filters.start){
+        filters.start = form[0]?.date.split('T')[0];
+    } else { 
+        filters.start = new Date(filters.start);
+    }
+    if (!filters.end){
+        filters.end = form[form.length-1]?.date.split('T')[0];
+    } else {
+    filters.end =  new Date(filters.end);
+    }
+    const dayNames = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+    let daysOfWeek = [];
+    
+    let current = filters.start;
+    let end = filters.end;
+
+    try {
+        while (current <= end) {
+            daysOfWeek.push(dayNames[current.getDay()]);
+            current.setDate(current.getDate() + 1);
+        }
+    } catch (error){}
+    
+    var plates = filters.plate.length != 0 ? data.plate.filter(x=> filters.plate.some(word => x?.name.includes(word)) ) : data.plate;
+
+    let totalValue = 0;
+    
+    daysOfWeek.forEach(item => {
+        plates.forEach(plate => {
+            plate.timeline.forEach(timeline => {
+                if (timeline.days.find(day => day==item)) totalValue += 1;
+            })
+        })
+    });
+
+    return totalValue
+    
+};
+
 const getActionByPlate = async (form) => {
     const initialCount = {}
 
@@ -99,15 +142,22 @@ export const processData = async ({filters, data}) => {
     if (filters.local.length != 0) filteredData = filteredData.filter(x => filters.local.some(word => x.local.includes(word)));
     if (filters.plate.length != 0) filteredData = filteredData.filter(x => x.plate?.name ?  filters.plate.some(word => x?.plate.name.includes(word)) : false);
     if (filters.users.length != 0) filteredData = filteredData.filter(x => filters.users.some(word => x.user.includes(word)));
+    if (filters.actions.length != 0){
+        filteredData = filteredData.filter(x => {
+            var allActions = [...x.actions, ...x.forActions];
+            return filters.actions.some(word => allActions.includes(word))
+        })
+    }
 
-
-    const titles = await getTitles(filteredData);
+    
+    const getAllTimeline = await getAllTimelineProcessor(filteredData, filters, data)
+    const titles = await getTitles(filteredData, getAllTimeline);
     const actionBytool = await getActionByTool(filteredData);
     const actionByPlate = await getActionByPlate(filteredData);
     const scheduledCount = await getScheduleCount(titles);
     const waterConsumption = await getWaterConsumption(filteredData);
 
     return  {
-        titles, actionBytool, filteredData, actionByPlate, scheduledCount, waterConsumption
+        titles, actionBytool, filteredData, actionByPlate, scheduledCount, waterConsumption, getAllTimeline
     }
 };

@@ -26,7 +26,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [data, setData] = useState({ local: [], plate: [], tool: [], users: [], form: [] });
     const [visibleData, setVisibleData] = useState({ titles, actionBytool: [], filteredData:[], actionByPlate: [], scheduledCount: [], waterConsumption:[] });
-    const [filters, setFilters] = useState({ start: '', end: '', local: [], plate: [], tool: [], users: []});
+    const [filters, setFilters] = useState({ start: '', end: '', local: [], plate: [], tool: [], users: [], actions: []});
     const [secondPage, setSecondPage] = useState(null);
     const [loaded, setLoaded] = useState(false);
 
@@ -77,7 +77,7 @@ const Dashboard = () => {
     }
     return (
             <Container>
-            <Filter data={data} filters={filters} setFilters={setFilters} onChange={x => updateVisibleData(null, x)}/>
+            <Filter data={data} filters={filters} setFilters={setFilters} onChange={x => updateVisibleData(null, x)} onActionFilter={secondPage != null}/>
                 {secondPage == null ? (
                     <>
                         <TitlesContainer>

@@ -18,13 +18,13 @@ import WaterConsumption from './subpages/waterConsumption';
 import ActionByPlate from './subpages/actionByPlate';
 import ActionByTool from './subpages/actionByTool';
 
-const titles = ['Total de atividades', 'Atividades dentro do cronograma', 'Atividades fora do cronograma', 'Consumo médio de água', 'Consumo total de água', 'Aderência'];
+const titles = ['Atividades Previstas', 'Total de atividades', 'Atividades dentro do cronograma', 'Atividades fora do cronograma', 'Consumo médio de água', 'Consumo total de água', 'Aderência'];
 
 const Dashboard = () => {
     
     const [data, setData] = useState({ local: [], plate: [], tool: [], users: [], form: [] });
-    const [visibleData, setVisibleData] = useState({ titles, actionBytool: [], filteredData:[], actionByPlate: [], scheduledCount: [], waterConsumption:[] });
-    const [filters, setFilters] = useState({ start: '', end: '', local: [], plate: [], tool: [], users: []});
+    const [visibleData, setVisibleData] = useState({ titles, actionBytool: [], filteredData:[], actionByPlate: [], scheduledCount: [], waterConsumption:[]});
+    const [filters, setFilters] = useState({ start: '', end: '', local: [], plate: [], tool: [], users: [], actions: []});
     const [secondPage, setSecondPage] = useState(null);
     const [loaded, setLoaded] = useState(false);
 

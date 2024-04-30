@@ -31,7 +31,7 @@ const WaterConsumption = ({data, onBack}) => {
             });
           })
         );
-        console.log(initialCount)
+
       
         var allNames = Object.values(initialCount).flatMap(x => Object.keys(x));
         allNames = Array.from(new Set(allNames));
