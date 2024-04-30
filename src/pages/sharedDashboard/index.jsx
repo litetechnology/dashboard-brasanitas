@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { AiOutlineRollback  } from "react-icons/ai"
-import { useNavigate } from "react-router-dom";
 
 import { Container, TitlesContainer, TitleBox, Row } from './styles';
 import formatNumber from '../../services/formatNumber';
@@ -20,12 +18,12 @@ import WaterConsumption from './subpages/waterConsumption';
 import ActionByPlate from './subpages/actionByPlate';
 import ActionByTool from './subpages/actionByTool';
 
-const titles = ['Total de atividades', 'Atividades dentro do cronograma', 'Atividades fora do cronograma', 'Consumo médio de água', 'Consumo total de água', 'Aderência'];
+const titles = ['Atividades Previstas', 'Total de atividades', 'Atividades dentro do cronograma', 'Atividades fora do cronograma', 'Consumo médio de água', 'Consumo total de água', 'Aderência'];
 
 const Dashboard = () => {
-    const navigate = useNavigate();
+    
     const [data, setData] = useState({ local: [], plate: [], tool: [], users: [], form: [] });
-    const [visibleData, setVisibleData] = useState({ titles, actionBytool: [], filteredData:[], actionByPlate: [], scheduledCount: [], waterConsumption:[] });
+    const [visibleData, setVisibleData] = useState({ titles, actionBytool: [], filteredData:[], actionByPlate: [], scheduledCount: [], waterConsumption:[]});
     const [filters, setFilters] = useState({ start: '', end: '', local: [], plate: [], tool: [], users: [], actions: []});
     const [secondPage, setSecondPage] = useState(null);
     const [loaded, setLoaded] = useState(false);
@@ -57,7 +55,7 @@ const Dashboard = () => {
 
     useEffect(() => { getData() }, []);
 
-    if (!loaded) return <Loading  />;
+    if (!loaded) return <Loading />;
 
     const SecondPageComponent = () => {
         switch(secondPage){
@@ -77,7 +75,7 @@ const Dashboard = () => {
     }
     return (
             <Container>
-            <Filter data={data} filters={filters} setFilters={setFilters} onChange={x => updateVisibleData(null, x)} onActionFilter={secondPage != null}/>
+<Filter data={data} filters={filters} setFilters={setFilters} onChange={x => updateVisibleData(null, x)} onActionFilter={secondPage != null}/>
                 {secondPage == null ? (
                     <>
                         <TitlesContainer>
@@ -124,9 +122,6 @@ const Dashboard = () => {
                                 ]}
                                 onClick={() => setSecondPage(4)}
                             />
-                        </Row>
-                        <Row>
-                        <Button name="VOLTAR" Icon={AiOutlineRollback } onButton={() => navigate('/main')}/>
                         </Row>
                     </>
                 ) : (
