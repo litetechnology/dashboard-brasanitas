@@ -5,10 +5,13 @@ import { Container, Box, Title, Question, LabelContainer } from './styles';
 import Dropdown from '../../components/Dropdown';
 import Button from '../../components/button';
 import Date from '../../components/formDate';
+import Input from '../../components/input';
+import Dropzone from '../../components/dropzone';
+import imageUpload from '../../services/imageUpload';
 import api from '../../services/api';
 
 const Form = () => {
-    const [form, setForm] = useState({ date: '', user:'', shift: '', tool: [], plate: {}, actions:[], forActions:[], water:[], local:''})
+    const [form, setForm] = useState({ date: '', user:'', shift: '', tool: [], plate: {}, actions:[], forActions:[], water:[], local:'', observation: '', imgs: []})
     const [data, setData] = useState({local:[], plate:[], tool:[], users:[]});
     const [allActivities, setAllActivities] = useState([]);
     const [dayOfWeek, setDayOfWeek] = useState('');
@@ -33,13 +36,13 @@ const Form = () => {
           };
 
           const sendData = async () => {
-                await window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth' 
-                    });
-
+              await window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth' 
+                });
+            var images = await imageUpload(form.imgs);
             const response = await toast.promise(
-                api.post('/form/create', form),
+                api.post('/form/create', {...form, imgs: images}),
                 {
                   pending: 'Enviando formulário',
                   success: 'Formulário enviado com sucesso',
@@ -47,7 +50,7 @@ const Form = () => {
                 }
               );
 
-              setForm({ date: '', user:'', shift: '', tool: [], plate: {}, actions:[], forActions:[], water:[]});
+              setForm({ date: '', user:'', shift: '', tool: [], plate: {}, actions:[], forActions:[], water:[], imgs: [], observation: ''});
 
           }
 
@@ -161,7 +164,15 @@ const Form = () => {
                         )
                     })
                 }
-
+                <Question>
+                    <LabelContainer>
+                        <label>Observações</label>
+                    </LabelContainer>
+                    <Input placeholder='observação' value={form.observation} color={'#262626'} onInput={(x) => setForm({...form, observation: x})} />
+                </Question>
+                <Question>
+                 <Dropzone value={form.imgs} setValue={(x) => setForm({...form, imgs: x})}/>
+                </Question>
                 <Button name={'ENVIAR'} center width='40vw' onButton={() => sendData()}/>
 
 
