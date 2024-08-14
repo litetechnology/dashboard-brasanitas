@@ -39,49 +39,48 @@ const Main = () => {
                         {
                             !click && <Card name={user?.name} onClick={() => setClick(true) & localStorage.setItem('save', true)}/>
                         }
-                        <TitleContainer>
-                            <Image src={image} alt="image" />
-                            <TitleBoxContainer>
-                                <h1>Controle de atividades complexo Vargem Grande</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et lectus a nisl iaculis volutpat. Etiam dictum varius nulla non dictum. Vivamus rhoncus posuere porttitor. Cras luctus, quam non consectetur fermentum, enim velit finibus tortor, non cursus tortor massa at urna. Sed rutrum faucibus lacus vel malesuada.</p>
-                                <ButtonsContainer>
-                                    <button onClick={() => navigate('/shared/operation') } >OPERAÇÃO<FiArrowRight size={20}/> </button>
-                                    <button onClick={() => navigate('/shared/segurance')} >SEGURANÇA<FiArrowRight size={20}/> </button>
-                                    {
-                                        user?.admin && <button onClick={() => navigate('/dashboard')} >DASHBOARD<FiArrowRight size={20}/> </button>
-                                    }
-                                    <button className="logout" onClick={onLogout} >SAIR<FiLogOut size={20}/> </button>
-                                </ButtonsContainer>
-                            </TitleBoxContainer>
-                        </TitleContainer>
+<TitleContainer>
+    <Image src={image} alt="image" />
+    <TitleBoxContainer>
+        <h1>Controle de Atividades - Complexo Vargem Grande</h1>
+        <p>Painel projetado para fornecer controle abrangente sobre a operação.</p>
+        <ButtonsContainer>
+            <button onClick={() => navigate('/shared/operation')} >OPERAÇÃO<FiArrowRight size={20}/> </button>
+            <button onClick={() => navigate('/shared/segurance')} >SEGURANÇA<FiArrowRight size={20}/> </button>
+            {
+                user?.admin && <button onClick={() => navigate('/dashboard')} >DASHBOARD<FiArrowRight size={20}/> </button>
+            }
+            <button className="logout" onClick={onLogout} >SAIR<FiLogOut size={20}/> </button>
+        </ButtonsContainer>
+    </TitleBoxContainer>
+</TitleContainer>
 
-                        <Carroussel/>
+<Carroussel/>
 
-                        <InfoContainer>
-                            <InfoRow>
-                                <InfoBox>
-                                    <span>1.</span>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquid cupiditate, iste distinctio aliquam magni odit nemo aut nobis eaque animi voluptatum repellat ratione qui atque nam officia at quos.</p>
-                                </InfoBox>
-                                <InfoBox>
-                                    <span>2.</span>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquid cupiditate, iste distinctio aliquam magni odit nemo aut nobis eaque animi voluptatum repellat ratione qui atque nam officia at quos.</p>
-                                </InfoBox>
-                            </InfoRow>
+<InfoContainer>
+    <InfoRow>
+        <InfoBox>
+            <span>1.</span>
+            <p>O monitoramento contínuo permite identificar e solucionar falhas rapidamente, garantindo o bom funcionamento das operações.</p>
+        </InfoBox>
+        <InfoBox>
+            <span>2.</span>
+            <p>Relatórios detalhados oferecem insights estratégicos, auxiliando na tomada de decisões baseadas em dados.</p>
+        </InfoBox>
+    </InfoRow>
 
-                            <InfoRow>
-                                <InfoBox>
-                                    <span>3.</span>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquid cupiditate, iste distinctio aliquam magni odit nemo aut nobis eaque animi voluptatum repellat ratione qui atque nam officia at quos.</p>
-                                </InfoBox>
-                                <InfoBox>
-                                    <span>4.</span>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquid cupiditate, iste distinctio aliquam magni odit nemo aut nobis eaque animi voluptatum repellat ratione qui atque nam officia at quos.</p>
-                                </InfoBox>
-                            </InfoRow>
+    <InfoRow>
+        <InfoBox>
+            <span>3.</span>
+            <p>A interface intuitiva facilita a gestão das atividades diárias, otimizando processos e aumentando a eficiência operacional.</p>
+        </InfoBox>
+        <InfoBox>
+            <span>4.</span>
+            <p>Soluções integradas promovem uma visão unificada de todas as operações, permitindo um controle centralizado e eficaz.</p>
+        </InfoBox>
+    </InfoRow>
+</InfoContainer>
 
-  
-                        </InfoContainer>
 
                     </Container>
     )
